@@ -3,10 +3,12 @@ import pygame
 from random import randint
 #Inicializando o pygame
 pygame.init()
+
 #Gerando Tela do Jogo
-tela_jogo = pygame.display.set_mode((800,800))
-pygame.display.set_caption('Nome do Jogo!')
+tela_jogo = pygame.display.set_mode((800,600))
+pygame.display.set_caption('jogo a definir')
 rodando = True 
+
 while rodando:
     # Ajusta a velocidade do jogo.
   
@@ -16,3 +18,6 @@ while rodando:
         # Verifica se foi fechado.
         if event.type == pygame.QUIT:
             rodando = False
+    #Preenche com cor
+    tela_jogo.fill((255,0,0))
+    pygame.display.update()
