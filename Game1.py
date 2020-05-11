@@ -4,8 +4,9 @@ from random import randint
 from os import path
 
 #Pasta que contêm os arquivos: 
-img_dir = path.join(path.dirname(__file__), 'img')
-som_dir = img_dir = path.join(path.dirname(__file__), 'sons')
+img_dir = path.join(path.dirname(_file_), 'img')
+som_dir = path.join(path.dirname(_file_), 'sons')
+font_dir = path.join(path.dirname(_file_), 'font')
 
 #Inicializando o pygame
 pygame.init()
@@ -18,50 +19,27 @@ clock = pygame.time.Clock()
 tamanho = (800,600)
 tela_jogo = pygame.display.set_mode(tamanho)
 pygame.display.set_caption('Super Marioigi Run!')
-superficie = pygame.display.set_mode(tamanho)
-FPS = 30
+FPS = 100
+
+fundo_arquivo = pygame.image.load(path.join(img_dir,'grama.png')).convert()
+fundo = pygame.transform.scale(fundo_arquivo, (tamanho))
+fundo_rect = fundo.get_rect()
+
 
 JOGANDO = True 
 
-class teladefundo():
-    def __init__(self):
-        #Renderizando as imagens e adicionando-as ao fundo
-        self.imagemfundo = pygame.image.load(path.join(img_dir,'mariotime.png'))
-        self.rectimagemfundo = self.imagemfundo.get.rect()
-        self.imagemfundo = pygame.transform.scale(self.imagemfundo, (800,600))
-        self.rectIMfundo = self.imagemfundo.get.rect()
 
-        #Alterando as posições e definido elas inicialmente 
-        self.fundoY1 = 0
-        self.fundoX1 = 0
-
-        self.fundoY2 = self.rectIMfundo.height 
-        self.fundoX2 = 0 
-
-        #Velocidade do fundo
-        self.movendovelocidade = 5
-
-    #Função pra colocar como as posições vão ser alteradas
-    def update(self):
-        self.fundoY1 -= self.movendovelocidade
-        self.fundoY2 -= self.movendovelocidade
-        if self.fundoX1 <= - self.rectIMfundo.height:
-            self.fundoX1 = self.rectIMfundo.height
-        if self.fundoX2 <= - self.rectIMfundo.height:
-            self.fundoX2 = self.rectIMfundo.height
-
-    #Renderizar imagens 
-    def renderizando (self):
-        superficie.blit(self.imagemfundo, (self.fundoX1,self.fundoY1))
-        superficie.blit(self.imagemfundo, (self.fundoX2,self.fundoY2))
 #class Jogadores():
-
-
-
-
+X = 0
 while JOGANDO:
     # Ajusta a velocidade do jogo.
     clock.tick(FPS)
+
+    rel_x = X % fundo.get_rect().width
+    tela_jogo.blit(fundo,(rel_x-fundo.get_rect().width ,0))
+    if rel_x < 800 :
+        tela_jogo.blit(fundo, (rel_x,0))
+    X -= 2
   
     # Processa os eventos (mouse, teclado, botão, etc).
     for event in pygame.event.get():
@@ -72,8 +50,12 @@ while JOGANDO:
         
         #if event.type == pygame.KEYUP:
 
-        #if event.type == pygame.
+
+        #if event.type == pygame.W
+
+        
             
-    #Preenche com cor
-    tela_jogo = teladefundo()
+    #Tela game
+    #tela_jogo = Teladefundo()
+    pygame.display.flip()
     pygame.display.update()
