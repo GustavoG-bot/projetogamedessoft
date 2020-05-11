@@ -30,16 +30,16 @@ JOGANDO = True
 
 
 #class Jogadores():
-X = 0
+posição_fundo = 0
 while JOGANDO:
     # Ajusta a velocidade do jogo.
     clock.tick(FPS)
 
-    rel_x = X % fundo.get_rect().width
-    tela_jogo.blit(fundo,(rel_x-fundo.get_rect().width ,0))
-    if rel_x < 800 :
-        tela_jogo.blit(fundo, (rel_x,0))
-    X -= 2
+    rel_posição_fundo = posição_fundo % fundo.get_rect().width
+    tela_jogo.blit(fundo,(rel_posição_fundo-fundo.get_rect().width ,0))
+    if rel_posição_fundo < 800 :
+        tela_jogo.blit(fundo, (rel_posição_fundo,0))
+    posição_fundo -= 2
   
     # Processa os eventos (mouse, teclado, botão, etc).
     for event in pygame.event.get():
