@@ -4,9 +4,9 @@ from random import randint
 from os import path
 
 #Pasta que contêm os arquivos: 
-img_dir = path.join(path.dirname(_file_), 'img')
-som_dir = path.join(path.dirname(_file_), 'sons')
-font_dir = path.join(path.dirname(_file_), 'font')
+img_dir = path.join(path.dirname(__file__), 'img')
+som_dir = path.join(path.dirname(__file__), 'sons')
+font_dir = path.join(path.dirname(__file__), 'font')
 
 #Inicializando o pygame
 pygame.init()
