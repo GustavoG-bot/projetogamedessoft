@@ -25,23 +25,18 @@ FPS = 100
 class Fundo(pygame.sprite.Sprite):
     def __init__(self,velocidade_fundo):
         pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load(path.join(img_dir,'grama.png'))
+        self.image = pygame.transform.scale(self.fundo_arquivo, (tamanho)).convert()
+        self.rect = self.fundo.get_rect()
         self.velocidade_fundo = velocidade_fundo
 
-    def imagem_fundo(self):
-        self.fundo_arquivo = pygame.image.load(path.join(img_dir,'grama.png')).convert()
-        self.fundo = pygame.transform.scale(self.fundo_arquivo, (tamanho))
-        self.fundo_rect = self.fundo.get_rect()
-
-    def movimento_fundo(self):
+    def update(self):
         self.rel_x = self.velocidade_fundo % self.fundo_rect.width
         self.tela_jogoblit = tela_jogo.blit(self.fundo,(self.rel_x-self.fundo_rect.width ,0))
         if self.rel_x < 800:
             self.tela_jogoblit = tela_jogo.blit(self.fundo,(self.rel_x,0))
         self.velocidade_fundo -= 5
 
-    def go_fundo(self):
-        self.imagem_fundo()
-        self.movimento_fundo()
 
 #Personagem
 class Personagem(pygame.sprite.Sprite):
@@ -54,13 +49,12 @@ class Personagem(pygame.sprite.Sprite):
         self.hitbox_personagem = (10,4,65,85)
 
     def localizacao (self,posX_personagem,posY_personagem):
-        self.posX_personagem = posX_personagem
-        self.posY_personagem = posY_personagem
+        self.rect.x = posX_personagem
+        self.rect.y = posY_personagem
 
     def imagens(self):
         self.personagem = pygame.image.load(path.join(img_dir,'mariogro.png')).convert_alpha()
         self.personagem_oficial = pygame.transform.scale(self.personagem,(90,90))
-        self.personagem_rect = self.personagem_oficial.get_rect()
         self.rect = self.personagem_oficial.get_rect()
         pygame.draw.rect(self.personagem_oficial, (255,0,0), self.hitbox_personagem, 2)
         tela_jogo.blit(self.personagem_oficial,(round(self.posX_personagem),round(self.posY_personagem)))
@@ -173,11 +167,14 @@ while JOGANDO:
 
     # Ajusta a velocidade do jogo.
     clock.tick(FPS)
+
+    # Chamando as funções para rodar.
     fundo.go_fundo()
     personagem.go()
     arvore.go_obstaculo()
     rocha.go_obstaculo()
     
+
     if arvore.colisao(personagem.hitbox_personagem) or rocha.colisao_rocha(personagem.hitbox_personagem):
         print ("oi")
       
