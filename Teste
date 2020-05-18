@@ -1,1 +1,36 @@
+#Importando Bibliotecas necessárias para o jogo
+import os
+import sys
+import pygame
 
+#Inicia rotinasdo pygame
+pygame.init()
+
+#Cria superfície para o jogo
+superficie = pygame.display.set_mode([400, 400])
+
+#Junta o caminho de arquivos
+arquivo=os.path.join("Imagens", "imagem")
+
+#Implementa uma imagem
+try: #tenta ler a imagem
+    imagem=pygame.image.load(arquivo)
+except pygame.error: #Se der errado
+    print("Erro ao tentar ler a imagem") #Avisa se der errado
+    sys.exit() #Sai pela rotina do sistema
+#Preenche a tela com a cor preta
+superficie.fill([0, 0, 0])
+
+#Desenha a imagem nas coordenadas determinadas
+superficie.blit(imagem, [0,0])
+
+#Faz a atualização da tela
+pygame.display.update()
+
+#Loop pricipal
+while True:
+    eventos=pygame.event.get()
+    for evento in eventos:
+        if evento.type == pygame.QUIT:
+            pygame.quit() #Encerra a aplicação pygame
+            sys.exit() #Sai pela rotina do sistema
