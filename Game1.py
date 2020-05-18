@@ -72,7 +72,10 @@ class Personagem(pygame.sprite.Sprite):
         self.personagem = pygame.image.load(path.join(img_dir,'mariogro.png')).convert_alpha()
         self.personagem_oficial = pygame.transform.scale(self.personagem,(90,90))
         self.personagem_rect = self.personagem_oficial.get_rect()
+<<<<<<< HEAD
         self.rect = self.personagem_oficial.get_rect()
+=======
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
         pygame.draw.rect(self.personagem_oficial, (255,0,0), self.hitbox_personagem, 2)
         tela_jogo.blit(self.personagem_oficial,(round(self.posX_personagem),round(self.posY_personagem)))
 
@@ -107,9 +110,14 @@ class Personagem(pygame.sprite.Sprite):
         self.imagens()
         self.botoes()
 
+<<<<<<< HEAD
 class Arvore(pygame.sprite.Sprite):
     def __init__(self,velocidade_arvore):
         pygame.sprite.Sprite.__init__(self)
+=======
+class Arvore():
+    def __init__(self,velocidade_arvore):
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
         self.velocidade_arvore = velocidade_arvore
 
     def localizacao_arvore(self,posX_arvore,posY_arvore):
@@ -120,7 +128,10 @@ class Arvore(pygame.sprite.Sprite):
         self.arvore = pygame.image.load(path.join(img_dir,'Arvore desenho.png')).convert_alpha()
         self.arvore_oficial = pygame.transform.scale(self.arvore,(120,120))
         self.arvore_rect = self.arvore_oficial.get_rect()
+<<<<<<< HEAD
         self.rect = self.arvore_oficial.get_rect()
+=======
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
         self.hitbox = (7,4,100,110)
         pygame.draw.rect(self.arvore_oficial, (0,255,0), self.hitbox, 2)
         tela_jogo.blit(self.arvore_oficial, (round(self.posX_arvore),round(self.posY_arvore)))
@@ -128,6 +139,41 @@ class Arvore(pygame.sprite.Sprite):
         if self.posX_arvore < 0:
             self.posX_arvore = randint(800,850)
             self.velocidade_arvore = randint(5,15)
+<<<<<<< HEAD
+
+    def colisao(self,rect):
+        if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            if rect[1] + rect[3] > self.hitbox[3]:
+                return True
+        return False
+
+
+    def go_obstaculo(self):
+        self.imagem_arvore()
+
+class Rocha(Arvore):
+    def __init__(self,velocidade_rocha):
+        self.velocidade_rocha = velocidade_rocha
+    
+    def imagem_arvore(self):
+        self.rocha = pygame.image.load(path.join(img_dir,'Rocha desenho.png')).convert_alpha()
+        self.rocha_oficial = pygame.transform.scale(self.rocha,(120,120))
+        self.rocha_rect = self.rocha_oficial.get_rect()
+        self.hitboxrocha = (20,4,80,110)
+        pygame.draw.rect(self.rocha_oficial, (0,255,0), self.hitboxrocha, 2)
+        self.blit = tela_jogo.blit(self.rocha_oficial, (self.posX_arvore,self.posY_arvore))
+        self.posX_arvore -= self.velocidade_rocha
+
+        if self.posX_arvore < 0:
+            self.posX_arvore = randint(850,900)
+            self.velocidade_rocha = randint(5,15)
+    
+    def colisao_rocha(self,rect):
+        if rect[0] + rect[2] > self.hitboxrocha[0] and rect[0] < self.hitboxrocha[0] + self.hitboxrocha[2]:
+            if rect[1] + rect[3] > self.hitboxrocha[3]:
+                return True
+        return False
+=======
 
     def colisao(self,rect):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
@@ -162,14 +208,23 @@ class Rocha(Arvore):
                 return True
         return False
 
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
 
 
 
 personagem = Personagem(10,10,False,1) #Altera Velocidade
 personagem.localizacao(200,397) #Altera localização
 
+<<<<<<< HEAD
+personagem = Personagem(10,10,False,1) #Altera Velocidade
+personagem.localizacao(200,397) #Altera localização
+
 fundo = Fundo(0) # Altera Velocidade do Fundo
 
+=======
+fundo = Fundo(0) # Altera Velocidade do Fundo
+
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
 arvore = Arvore(5) # Altera velocidade da árvore
 arvore.localizacao_arvore(600,375) # Altera posição da árvore
 
@@ -225,6 +280,7 @@ while JOGANDO:
     rocha.go_obstaculo()
     
 
+<<<<<<< HEAD
     #if arvore.colisao(personagem.hitbox_personagem) or rocha.colisao_rocha(personagem.hitbox_personagem):
         #print ("oi")
     
@@ -232,6 +288,10 @@ while JOGANDO:
     
     if hits != 1:
         print ("Salve")
+=======
+    if arvore.colisao(personagem.hitbox_personagem) or rocha.colisao_rocha(personagem.hitbox_personagem):
+        print ("oi")
+>>>>>>> 78d178e9fd50857a33de2583891c134b031ad10c
     
     '''
     if rel_x < 800:
