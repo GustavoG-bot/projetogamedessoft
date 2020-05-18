@@ -123,9 +123,9 @@ class Arvore(pygame.sprite.Sprite):
     def colisao(self):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
             if rect[1] + rect[3] > self.hitbox[3]:
-                    return True
-                else:
-                    return False
+                return True
+            else:
+                return False
 
     def go_obstaculo(self):
         self.imagem_arvore()
