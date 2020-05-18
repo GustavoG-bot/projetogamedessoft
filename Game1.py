@@ -1,4 +1,3 @@
-
 #Importar Bibliotecas necessárias para o jogo
 import pygame
 from random import randint
@@ -120,7 +119,7 @@ class Arvore(pygame.sprite.Sprite):
             self.posX_arvore = randint(800,850)
             self.velocidade_arvore = randint(5,15)
 
-    def colisao(self):
+    def colisao(self, rect):
         if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
             if rect[1] + rect[3] > self.hitbox[3]:
                 return True
@@ -192,5 +191,3 @@ while JOGANDO:
     #Tela Games
     pygame.display.flip()
     pygame.display.update()
-
-
