@@ -170,8 +170,8 @@ class Bullet(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(70,70 ))
 
         self.rect = self.image.get_rect()
-        self.rect.x = personagem.rect.centerx
-        self.rect.y = personagem.rect.y
+        self.rect.x = mariogro.rect.centerx
+        self.rect.y = mariogro.rect.y
 
     def update(self): 
         global fire_state
