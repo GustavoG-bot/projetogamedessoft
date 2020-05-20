@@ -22,6 +22,16 @@ tela_jogo = pygame.display.set_mode(tamanho)
 pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
 
+def tela_final(texto1,texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
+    tela_fim = pygame.display.set_mode(tamanho)
+    tela_fim.fill(cor_fundo)
+    fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
+    superficie1 = fonte_fim.render(texto1, True, cor_da_letra)
+    tela_fim.blit(superficie1, (250, 100))
+    fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
+    superficie2 = fonte_fim2.render(texto2, True, cor_da_letra)
+    tela_fim.blit(superficie2, (150, 300))
+
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
         tela_jogo2 = pygame.display.set_mode(tamanho)
@@ -54,15 +64,17 @@ class Fundo_intro(pygame.sprite.Sprite):
 
 
 class Fundo(pygame.sprite.Sprite):
-    def __init__(self,velocidade_fundo):
+    def __init__(self,velocidade_fundo,pontos_iniciais):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(path.join(img_dir,'grama.png'))
         self.image = pygame.transform.scale(self.image, (tamanho)).convert()
         self.rect = self.image.get_rect()
         self.speedx = velocidade_fundo
+        self.pontos = pontos_iniciais
 
     def update(self):
         self.speedx -= 3
+        self.pontos += 3
         self.rel_x = self.speedx % self.rect.width
         self.tela_jogoblit = tela_jogo.blit(self.image,(self.rel_x-self.rect.width ,0))
         if self.rel_x < 800:
@@ -187,7 +199,7 @@ bullet = Bullet(-30)
 
 intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atirar","Pressione CIMA para pular","Pressione DIREITA ou ESQUERDA para mover o ogro","Caso encoste em um obstáculo, o jogo para","Pressione ENTER para continuar", (255,255,255), 80,30, (34,139,34))
 
-fundo = Fundo(0) # Altera Velocidade do Fundo
+fundo = Fundo(0,0) # Altera Velocidade do Fundo
 
 rosado = Rosado(5,600,400) # Altera velocidade do monstro rosado 
 
@@ -238,7 +250,11 @@ while loop:
         hits_do_bem2 = pygame.sprite.collide_rect(azulado,bullet)
 
         if hits or hits2:
-            pygame.quit()
+            JOGANDO = False
+            placar = fundo.pontos
+            tela_final("Fim de jogo", "Você fez {0} pontos".format(placar),(255,255,255),80,(0,0,0))
+            pygame.display.update()
+
             
         if hits_do_bem:
             rosado.rect.x = randint(800,850)
