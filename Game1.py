@@ -52,6 +52,7 @@ class Fundo_intro(pygame.sprite.Sprite):
         tela_jogo2.blit(self.superficie8, (220, 500))
         pygame.display.update()
 
+
 class Fundo(pygame.sprite.Sprite):
     def __init__(self,velocidade_fundo):
         pygame.sprite.Sprite.__init__(self)
@@ -180,7 +181,7 @@ class Bullet(pygame.sprite.Sprite):
 
 fire_state = 'ready'
 
-personagem = Personagem(5,10,False,1,200,397) #Altera Velocidade
+mariogro = Personagem(5,10,False,1,200,397) #Altera Velocidade
 
 bullet = Bullet(-30)
 
@@ -214,15 +215,15 @@ while loop:
 
         # Chamando as funções para rodar.
         fundo.go_fundo()
-        personagem.go()
+        mariogro.go()
         rosado.go_obstaculo()
         azulado.go_obstaculo()
         
         if bullet.rect.x > 4000:
-            bullet.rect.x = personagem.rect.centerx
-            if personagem.PULANDO == False:
-                bullet.rect.y = personagem.rect.y
-            elif personagem.PULANDO == True:
+            bullet.rect.x = mariogro.rect.centerx
+            if mariogro.PULANDO == False:
+                bullet.rect.y = mariogro.rect.y
+            elif mariogro.PULANDO == True:
                 bullet.rect.y = azulado.rect.y
             fire_state = 'ready'
 
@@ -230,15 +231,15 @@ while loop:
             bullet.update()
             bullet.rect.x -= bullet.speedx
 
-        hits = pygame.sprite.collide_rect(personagem, rosado)
-        hits2 = pygame.sprite.collide_rect(personagem, azulado)
+        hits = pygame.sprite.collide_rect(mariogro, rosado)
+        hits2 = pygame.sprite.collide_rect(mariogro, azulado)
 
         hits_do_bem = pygame.sprite.collide_rect(rosado,bullet)
         hits_do_bem2 = pygame.sprite.collide_rect(azulado,bullet)
 
         if hits or hits2:
             pygame.quit()
-        
+            
         if hits_do_bem:
             rosado.rect.x = randint(800,850)
             rosado.speedx = randint(6,8)
