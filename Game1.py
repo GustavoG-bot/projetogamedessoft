@@ -1,4 +1,3 @@
-
 #Importar Bibliotecas necessárias para o jogo
 import pygame
 from random import randint
@@ -57,6 +56,11 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.x = posX_personagem
         self.rect.y = posY_personagem
 
+<<<<<<< HEAD
+=======
+        #self.hitbox = (10,4,65,85)
+        #pygame.draw.rect(self.image, (255,0,0), self.hitbox, 2)
+>>>>>>> 781cb3aeb85c456a7e3b0e2daeeaad040f224fb6
 
         self.speedx = velocidade_personagem
 
@@ -78,8 +82,12 @@ class Personagem(pygame.sprite.Sprite):
                 self.negativo = 1
                 if self.tempo_pulo < 0:
                     self.negativo = -1
+<<<<<<< HEAD
                 self.rect.y -= int(self.tempo_pulo**2 * 0.65 * self.negativo) 
                 self.rect.x +=4
+=======
+                self.rect.y -= int(self.tempo_pulo**2 /2 * self.negativo) 
+>>>>>>> 781cb3aeb85c456a7e3b0e2daeeaad040f224fb6
                 self.tempo_pulo -= 1
             else:
                 self.PULANDO = False
@@ -93,15 +101,24 @@ class Personagem(pygame.sprite.Sprite):
 class Arvore(pygame.sprite.Sprite):
     def __init__(self,velocidade_arvore,posX_arvore,posY_arvore):
         pygame.sprite.Sprite.__init__(self)
+<<<<<<< HEAD
 
         self.speedx = velocidade_arvore
         self.image = pygame.image.load(path.join(img_dir,'skeleton-idle_00.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image,(90,90))
+=======
+
+
+        self.speedx = velocidade_arvore
+        self.image = pygame.image.load(path.join(img_dir,'Arvore desenho.png')).convert_alpha()
+        self.image = pygame.transform.scale(self.image,(120,120))
+>>>>>>> 781cb3aeb85c456a7e3b0e2daeeaad040f224fb6
         self.rect = self.image.get_rect()
 
         self.rect.x = posX_arvore
         self.rect.y = posY_arvore
 
+<<<<<<< HEAD
     
     def update(self):
         self.rect.x -= self.speedx
@@ -143,6 +160,69 @@ rocha = Rocha(5,850,295) # Altera velocidade da rocha
 
 
 
+=======
+        self.hitbox = (7,4,100,110)
+
+        #pygame.draw.rect(self.image, (0,255,0), self.hitbox, 2)
+
+    def update(self):
+        self.rect.x -= self.speedx
+
+        if self.rect.x < 0:
+            self.rect.x = randint(800,850)
+            self.speedx = randint(5,8)
+
+        tela_jogo.blit(self.image, (round(self.rect.x),round(self.rect.y)))
+
+    #def colisao(self, rect):
+        #if rect[0] + rect[2] > self.hitbox[0] and rect[0] < self.hitbox[0] + self.hitbox[2]:
+            #if rect[1] + rect[3] > self.hitbox[3]:
+                #return True
+            #else:
+                #return False
+
+    def go_obstaculo(self):
+        self.update()
+
+class Rocha(Arvore):
+    def __init__(self,velocidade_rocha,posX_rocha,posY_rocha):
+
+        self.speedx = velocidade_rocha
+        self.image = pygame.image.load(path.join(img_dir,'Rocha desenho.png')).convert_alpha()
+        self.image = pygame.transform.scale(self.image,(120,120))
+        self.rect = self.image.get_rect()
+        self.rect.x = posX_rocha
+        self.rect.y = posY_rocha
+
+        self.hitbox = (20,4,80,110)
+
+        #pygame.draw.rect(self.image, (0,255,0), self.hitbox, 2)
+    
+    def update(self):
+        self.rect.x -= self.speedx
+        if self.rect.x < 0:
+            self.rect.x = randint(850,900)
+            self.speedx = randint(5,9)
+        tela_jogo.blit(self.image, (self.rect.x,self.rect.y))
+    
+    #def colisao_rocha(self,rect):
+        #if rect[0] + rect[2] > self.hitboxrocha[0] and rect[0] < self.hitboxrocha[0] + self.hitboxrocha[2]:
+            #if rect[1] + rect[3] > self.hitboxrocha[3]:
+                #return True
+        #return False
+
+
+personagem = Personagem(5,10,False,1,200,397) #Altera Velocidade
+
+fundo = Fundo(0) # Altera Velocidade do Fundo
+
+arvore = Arvore(5,600,375) # Altera velocidade da árvore
+
+rocha = Rocha(5,850,375) # Altera velocidade da rocha 
+
+
+
+>>>>>>> 781cb3aeb85c456a7e3b0e2daeeaad040f224fb6
 JOGANDO = True 
 
 while JOGANDO:
@@ -157,10 +237,18 @@ while JOGANDO:
     rocha.go_obstaculo()
     
     hits = pygame.sprite.collide_rect(personagem, arvore)
+<<<<<<< HEAD
     hits2 = pygame.sprite.collide_rect(personagem, rocha)
     if hits or hits2:
         print ('colidiu')
 
+=======
+    if hits:
+        print ('colidiu')
+
+    #if arvore.colisao(personagem.hitbox_personagem) or rocha.colisao_rocha(personagem.hitbox_personagem):
+        #print ("oi")
+>>>>>>> 781cb3aeb85c456a7e3b0e2daeeaad040f224fb6
       
     # Processa os eventos (mouse, teclado, botão, etc).
     for event in pygame.event.get():
