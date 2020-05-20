@@ -1,14 +1,28 @@
-#Importar Bibliotecas necessárias para o jogo
+"""
+Programa projeto final de Design de Software - Engenharia Insper - 1 semestre
+Autores:
+Filippo Ferraro
+Gustavo Guedes
+Tiago Seixas
+"""
+
+#Importando Bibliotecas necessárias para o jogo
 import pygame
 from random import randint
 from os import path
 from math import *
 import time 
+import sys
 
-#Pasta que contêm os arquivos: 
-img_dir = path.join(path.dirname(__file__), 'img')
-som_dir = path.join(path.dirname(__file__), 'sons')
-font_dir = path.join(path.dirname(__file__), 'font')
+
+try: #tenta ler os arquivos
+    #Pasta que contêm os arquivos:
+    img_dir = path.join(path.dirname(__file__), 'img')
+    som_dir = path.join(path.dirname(__file__), 'sons')
+    font_dir = path.join(path.dirname(__file__), 'font')
+except pygame.error: #Se der errado
+    print("Erro ao tentar ler a imagem") #Avisa se der errado
+    sys.exit() #Sai pela rotina do sistema
 
 #Inicializando o pygame
 pygame.init()
@@ -32,6 +46,7 @@ def tela_final(texto1,texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
     superficie2 = fonte_fim2.render(texto2, True, cor_da_letra)
     tela_fim.blit(superficie2, (150, 300))
 
+#Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
         tela_jogo2 = pygame.display.set_mode(tamanho)
@@ -205,6 +220,7 @@ rosado = Rosado(5,600,400) # Altera velocidade do monstro rosado
 
 azulado = Azulado(5,850,260) # Altera velocidade do monstro azulado
 
+#Loop da tela inicial
 loop = True
 
 while loop:
@@ -218,7 +234,7 @@ while loop:
             elif event.type == pygame.QUIT:
                 pygame.quit()
 
-
+    #Loop principal do jogo
     JOGANDO = True
     while JOGANDO:
         keys = pygame.key.get_pressed()
