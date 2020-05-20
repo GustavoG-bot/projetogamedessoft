@@ -22,8 +22,6 @@ tela_jogo = pygame.display.set_mode(tamanho)
 pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
 
-fire_state = 'ready'
-
 class Fundo(pygame.sprite.Sprite):
     def __init__(self,velocidade_fundo):
         pygame.sprite.Sprite.__init__(self)
@@ -61,7 +59,6 @@ class Personagem(pygame.sprite.Sprite):
         self.speedx = velocidade_personagem
     
     def update(self):
-        self.rect.x -= 3
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and self.rect.x > self.speedx:
             self.rect.x -= self.speedx
@@ -151,6 +148,7 @@ class Bullet(pygame.sprite.Sprite):
         tela_jogo.blit(self.image, (self.rect.x,self.rect.y))
 
 
+fire_state = 'ready'
 
 personagem = Personagem(5,10,False,1,200,397) #Altera Velocidade
 
@@ -160,7 +158,7 @@ fundo = Fundo(0) # Altera Velocidade do Fundo
 
 arvore = Arvore(5,600,400) # Altera velocidade da árvore
 
-rocha = Rocha(5,850,295) # Altera velocidade da rocha 
+rocha = Rocha(5,850,260) # Altera velocidade da rocha 
 
 
 
@@ -177,9 +175,12 @@ while JOGANDO:
     arvore.go_obstaculo()
     rocha.go_obstaculo()
     
-    if bullet.rect.x > 800:
+    if bullet.rect.x > 1368:
         bullet.rect.x = personagem.rect.centerx
-        bullet.rect.y = personagem.rect.y
+        if personagem.PULANDO == False:
+            bullet.rect.y = personagem.rect.y
+        elif personagem.PULANDO == True:
+            bullet.rect.y = rocha.rect.y
         fire_state = 'ready'
 
     if fire_state == 'FIRE':
@@ -188,9 +189,19 @@ while JOGANDO:
 
     hits = pygame.sprite.collide_rect(personagem, arvore)
     hits2 = pygame.sprite.collide_rect(personagem, rocha)
-    if hits or hits2:
-        print ('colidiu')
-      
+
+    hits_do_bem = pygame.sprite.collide_rect(arvore,bullet)
+    hits_do_bem2 = pygame.sprite.collide_rect(rocha,bullet)
+
+    #if hits or hits2:
+    
+    if hits_do_bem:
+        arvore.rect.x = randint(800,850)
+        arvore.speedx = randint(6,8)
+    elif hits_do_bem2:
+        rocha.rect.x = randint(850,900)
+        rocha.speedx = randint(6,8)
+
     # Processa os eventos (mouse, teclado, botão, etc).
     for event in pygame.event.get():
 
