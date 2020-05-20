@@ -23,22 +23,33 @@ pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
 
 class Fundo_intro(pygame.sprite.Sprite):
-    def __init__(self,texto1,texto2,texto3,texto4, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
-        tamanho_certo = (800,800)
+    def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
         tela_jogo2 = pygame.display.set_mode(tamanho)
         tela_jogo2.fill(cor_fundo)
         self.fonte_texto1 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie1 = self.fonte_texto1.render(texto1, True, cor_da_letra)
-        tela_jogo.blit(self.superficie1, (240, 100))
+        tela_jogo2.blit(self.superficie1, (260, 60))
         self.fonte_texto2 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie2 = self.fonte_texto2.render(texto2, True, cor_da_letra)
-        tela_jogo.blit(self.superficie2, (380, 160))
+        tela_jogo2.blit(self.superficie2, (360, 120))
         self.fonte_texto3 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie3 = self.fonte_texto3.render(texto3, True, cor_da_letra)
-        tela_jogo.blit(self.superficie3, (170, 220))
+        tela_jogo2.blit(self.superficie3, (190, 180))
         self.fonte_texto4 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie4 = self.fonte_texto4.render(texto4, True, cor_da_letra)
-        tela_jogo.blit(self.superficie4, (250, 500))
+        tela_jogo2.blit(self.superficie4, (240, 320))
+        self.fonte_texto5 = pygame.font.SysFont(None, tamanho_da_instrucao)
+        self.superficie5 = self.fonte_texto5.render(texto5, True, cor_da_letra)
+        tela_jogo2.blit(self.superficie5, (250, 360))
+        self.fonte_texto6 = pygame.font.SysFont(None, tamanho_da_instrucao)
+        self.superficie6 = self.fonte_texto6.render(texto6, True, cor_da_letra)
+        tela_jogo2.blit(self.superficie6, (130, 400))
+        self.fonte_texto7 = pygame.font.SysFont(None, tamanho_da_instrucao)
+        self.superficie7 = self.fonte_texto7.render(texto7, True, cor_da_letra)
+        tela_jogo2.blit(self.superficie7, (160, 440))
+        self.fonte_texto8 = pygame.font.SysFont(None, tamanho_da_instrucao)
+        self.superficie8 = self.fonte_texto8.render(texto8, True, cor_da_letra)
+        tela_jogo2.blit(self.superficie8, (220, 500))
         pygame.display.update()
 
 class Fundo(pygame.sprite.Sprite):
@@ -173,7 +184,7 @@ personagem = Personagem(5,10,False,1,200,397) #Altera Velocidade
 
 bullet = Bullet(-6)
 
-intro = Fundo_intro("Bem Vindo","ao","Supermariogro","pressione ENTER para continuar", (255,255,255), 100,30, (34,139,34))
+intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atirar","Pressione CIMA para pular","Pressione DIREITA ou ESQUERDA para mover o ogro","Caso encoste em um obstáculo,o jogo reinicia","Pressione ENTER para continuar", (255,255,255), 80,30, (34,139,34))
 
 fundo = Fundo(0) # Altera Velocidade do Fundo
 
@@ -191,6 +202,7 @@ while Intro:
             Intro = False
         elif event.type == pygame.QUIT:
             pygame.quit()
+
 
 JOGANDO = True 
 
