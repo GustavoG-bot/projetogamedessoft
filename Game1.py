@@ -104,28 +104,28 @@ class Personagem(pygame.sprite.Sprite):
                 self.negativo = 1
                 if self.tempo_pulo < 0:
                     self.negativo = -1
-                self.rect.y -= int(self.tempo_pulo**2 * 0.65 * self.negativo) 
+                self.rect.y -= float(self.tempo_pulo**2 * 0.65 * self.negativo) 
                 self.rect.x +=4
                 self.tempo_pulo -= 1
             else:
                 self.PULANDO = False
-                self.tempo_pulo = 10
+                self.tempo_pulo = 10 
         tela_jogo.blit(self.image,(self.rect.x,self.rect.y))
 
     def go(self):
         self.update()
 
-class Arvore(pygame.sprite.Sprite):
-    def __init__(self,velocidade_arvore,posX_arvore,posY_arvore):
+class Rosado(pygame.sprite.Sprite):
+    def __init__(self,velocidade_rosado,posX_rosado,posY_rosado):
         pygame.sprite.Sprite.__init__(self)
 
-        self.speedx = velocidade_arvore
+        self.speedx = velocidade_rosado
         self.image = pygame.image.load(path.join(img_dir,'skeleton-idle_00.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image,(90,90))
         self.rect = self.image.get_rect()
 
-        self.rect.x = posX_arvore
-        self.rect.y = posY_arvore
+        self.rect.x = posX_rosado
+        self.rect.y = posY_rosado
 
     
     def update(self):
@@ -133,7 +133,7 @@ class Arvore(pygame.sprite.Sprite):
         self.rect.x -= self.speedx
 
         if self.rect.x < 0:
-            self.rect.x = randint(800,850)
+            self.rect.x += 1200
             self.speedx = randint(5,8)
     
         tela_jogo.blit(self.image, (self.rect.x,self.rect.y))
@@ -141,21 +141,21 @@ class Arvore(pygame.sprite.Sprite):
     def go_obstaculo(self):
         self.update()
 
-class Rocha(Arvore):
-    def __init__(self,velocidade_rocha,posX_rocha,posY_rocha):
+class Azulado(Rosado):
+    def __init__(self,velocidade_azulado,posX_azulado,posY_azulado):
 
-        self.speedx = velocidade_rocha
+        self.speedx = velocidade_azulado
         self.image = pygame.image.load(path.join(img_dir,'skeleton-fly_00.png')).convert_alpha()
         self.image = pygame.transform.scale(self.image,(105,105))
         self.rect = self.image.get_rect()
-        self.rect.x = posX_rocha
-        self.rect.y = posY_rocha
+        self.rect.x = posX_azulado
+        self.rect.y = posY_azulado
 
     
     def update(self):
         self.rect.x -= self.speedx
         if self.rect.x < 0:
-            self.rect.x = randint(870,900)
+            self.rect.x += 1700
             self.speedx = randint(5,6)
         tela_jogo.blit(self.image, (self.rect.x,self.rect.y))
 
@@ -182,77 +182,79 @@ fire_state = 'ready'
 
 personagem = Personagem(5,10,False,1,200,397) #Altera Velocidade
 
-bullet = Bullet(-6)
+bullet = Bullet(-30)
 
-intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atirar","Pressione CIMA para pular","Pressione DIREITA ou ESQUERDA para mover o ogro","Caso encoste em um obstáculo,o jogo reinicia","Pressione ENTER para continuar", (255,255,255), 80,30, (34,139,34))
+intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atirar","Pressione CIMA para pular","Pressione DIREITA ou ESQUERDA para mover o ogro","Caso encoste em um obstáculo, o jogo para","Pressione ENTER para continuar", (255,255,255), 80,30, (34,139,34))
 
 fundo = Fundo(0) # Altera Velocidade do Fundo
 
-arvore = Arvore(5,600,400) # Altera velocidade da árvore
+rosado = Rosado(5,600,400) # Altera velocidade do monstro rosado 
 
-rocha = Rocha(5,850,260) # Altera velocidade da rocha 
+azulado = Azulado(5,850,260) # Altera velocidade do monstro azulado
 
-Intro = True
+loop = True
 
-while Intro:
-    keys = pygame.key.get_pressed()
-    intro.__init__
-    for event in pygame.event.get():
-        if keys[pygame.K_RETURN]:
-            Intro = False
-        elif event.type == pygame.QUIT:
-            pygame.quit()
+while loop:
+    Intro = True
+    while Intro:
+        intro.__init__
+        keys = pygame.key.get_pressed()
+        for event in pygame.event.get():
+            if keys[pygame.K_RETURN]:
+                Intro = False
+            elif event.type == pygame.QUIT:
+                pygame.quit()
 
 
-JOGANDO = True 
+    JOGANDO = True
+    while JOGANDO:
+        keys = pygame.key.get_pressed()
+        # Ajusta a velocidade do jogo.
+        clock.tick(FPS)
 
-while JOGANDO:
-    keys = pygame.key.get_pressed()
-    # Ajusta a velocidade do jogo.
-    clock.tick(FPS)
+        # Chamando as funções para rodar.
+        fundo.go_fundo()
+        personagem.go()
+        rosado.go_obstaculo()
+        azulado.go_obstaculo()
+        
+        if bullet.rect.x > 4000:
+            bullet.rect.x = personagem.rect.centerx
+            if personagem.PULANDO == False:
+                bullet.rect.y = personagem.rect.y
+            elif personagem.PULANDO == True:
+                bullet.rect.y = azulado.rect.y
+            fire_state = 'ready'
 
-    # Chamando as funções para rodar.
-    fundo.go_fundo()
-    personagem.go()
-    arvore.go_obstaculo()
-    rocha.go_obstaculo()
-    
-    if bullet.rect.x > 1368:
-        bullet.rect.x = personagem.rect.centerx
-        if personagem.PULANDO == False:
-            bullet.rect.y = personagem.rect.y
-        elif personagem.PULANDO == True:
-            bullet.rect.y = rocha.rect.y
-        fire_state = 'ready'
-
-    if fire_state == 'FIRE':
-        bullet.update()
-        bullet.rect.x -= bullet.speedx
-
-    hits = pygame.sprite.collide_rect(personagem, arvore)
-    hits2 = pygame.sprite.collide_rect(personagem, rocha)
-
-    hits_do_bem = pygame.sprite.collide_rect(arvore,bullet)
-    hits_do_bem2 = pygame.sprite.collide_rect(rocha,bullet)
-
-    #if hits or hits2:
-    
-    if hits_do_bem:
-        arvore.rect.x = randint(800,850)
-        arvore.speedx = randint(6,8)
-    elif hits_do_bem2:
-        rocha.rect.x = randint(850,900)
-        rocha.speedx = randint(6,8)
-
-    # Processa os eventos (mouse, teclado, botão, etc).
-    for event in pygame.event.get():
-
-        if keys[pygame.K_SPACE]:
+        if fire_state == 'FIRE':
             bullet.update()
-        # Verifica se foi fechado.
-        if event.type == pygame.QUIT:
-            JOGANDO = False
+            bullet.rect.x -= bullet.speedx
 
-    #Tela Games
-    pygame.display.flip()
-    pygame.display.update()
+        hits = pygame.sprite.collide_rect(personagem, rosado)
+        hits2 = pygame.sprite.collide_rect(personagem, azulado)
+
+        hits_do_bem = pygame.sprite.collide_rect(rosado,bullet)
+        hits_do_bem2 = pygame.sprite.collide_rect(azulado,bullet)
+
+        if hits or hits2:
+            pygame.quit()
+        
+        if hits_do_bem:
+            rosado.rect.x = randint(800,850)
+            rosado.speedx = randint(6,8)
+        elif hits_do_bem2:
+            azulado.rect.x = randint(850,900)
+            azulado.speedx = randint(6,8)
+
+        # Processa os eventos (mouse, teclado, botão, etc).
+        for event in pygame.event.get():
+
+            if keys[pygame.K_SPACE]:
+                bullet.update()
+            # Verifica se foi fechado.
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+        #Tela Games
+        pygame.display.flip()
+        pygame.display.update()
