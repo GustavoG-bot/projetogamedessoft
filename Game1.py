@@ -13,7 +13,7 @@ from os import path
 from math import *
 import time 
 import sys
-
+from pygame import mixer
 
 try: #tenta ler os arquivos
     #Pasta que contêm os arquivos:
@@ -45,6 +45,8 @@ def tela_final(texto1,texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
     fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
     superficie2 = fonte_fim2.render(texto2, True, cor_da_letra)
     tela_fim.blit(superficie2, (150, 300))
+
+
 
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
@@ -132,7 +134,7 @@ class Personagem(pygame.sprite.Sprite):
                 self.negativo = 1
                 if self.tempo_pulo < 0:
                     self.negativo = -1
-                self.rect.y -= float(self.tempo_pulo**2 * 0.65 * self.negativo) 
+                self.rect.y -= int(self.tempo_pulo**2 * 0.65 * self.negativo) 
                 self.rect.x +=4
                 self.tempo_pulo -= 1
             else:
@@ -204,8 +206,7 @@ class Bullet(pygame.sprite.Sprite):
         global fire_state
         fire_state = 'FIRE'
         tela_jogo.blit(self.image, (self.rect.x,self.rect.y))
-
-
+        
 fire_state = 'ready'
 
 mariogro = Personagem(5,10,False,1,200,397) #Altera Velocidade
@@ -246,6 +247,10 @@ while loop:
         mariogro.go()
         rosado.go_obstaculo()
         azulado.go_obstaculo()
+
+        #Implementando Música de fundo
+        mixer.music.load(som_dir,"MusicaFundo.mp3")
+        mixer.music.play(-1)
         
         if bullet.rect.x > 4000:
             bullet.rect.x = mariogro.rect.centerx
@@ -256,9 +261,11 @@ while loop:
             fire_state = 'ready'
 
         if fire_state == 'FIRE':
+            bullet_sound=mixer.Sound(som_dir, "bullet.wav")
+            bullet_sound.play()
             bullet.update()
             bullet.rect.x -= bullet.speedx
-
+        
         hits = pygame.sprite.collide_rect(mariogro, rosado)
         hits2 = pygame.sprite.collide_rect(mariogro, azulado)
 
