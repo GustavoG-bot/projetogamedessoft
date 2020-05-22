@@ -15,14 +15,12 @@ import time
 import sys
 from pygame import mixer
 
-try: #tenta ler os arquivos
-    #Pasta que contêm os arquivos:
-    img_dir = path.join(path.dirname(__file__), 'img')
-    som_dir = path.join(path.dirname(__file__), 'sons')
-    font_dir = path.join(path.dirname(__file__), 'font')
-except pygame.error: #Se der errado
-    print("Erro ao tentar ler a imagem") #Avisa se der errado
-    sys.exit() #Sai pela rotina do sistema
+
+#Pasta que contêm os arquivos:
+img_dir = path.join(path.dirname(__file__), 'img')
+som_dir = path.join(path.dirname(__file__), 'sons')
+font_dir = path.join(path.dirname(__file__), 'font')
+
 
 #Inicializando o pygame
 pygame.init()
@@ -83,7 +81,11 @@ class Fundo_intro(pygame.sprite.Sprite):
 class Fundo(pygame.sprite.Sprite):
     def __init__(self,velocidade_fundo,pontos_iniciais):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(path.join(img_dir,'grama.png'))
+        try: #tenta ler os arquivos
+            self.image = pygame.image.load(path.join(img_dir,'grama.png'))
+        except pygame.error: #Se der errado
+            print("Erro ao tentar ler a imagem do fundo") #Avisa se der errado
+            sys.exit() #Sai pela rotina do sistema
         self.image = pygame.transform.scale(self.image, (tamanho)).convert()
         self.rect = self.image.get_rect()
         self.speedx = velocidade_fundo
@@ -104,7 +106,11 @@ class Fundo(pygame.sprite.Sprite):
 class Personagem(pygame.sprite.Sprite):
     def __init__ (self, velocidade_personagem, tempo_pulo, PULANDO, negativo, posX_personagem, posY_personagem):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(path.join(img_dir,'mariogro.png'))
+        try: #tenta ler os arquivos
+            self.image = pygame.image.load(path.join(img_dir,'mariogro.png'))
+        except pygame.error: #Se der errado
+            print("Erro ao tentar ler a imagem do personagem") #Avisa se der errado
+            sys.exit() #Sai pela rotina do sistema
         self.image = pygame.transform.scale(self.image,(90,90)).convert_alpha()
         self.rect = self.image.get_rect()
 
@@ -150,7 +156,11 @@ class Rosado(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.speedx = velocidade_rosado
-        self.image = pygame.image.load(path.join(img_dir,'skeleton-idle_00.png')).convert_alpha()
+        try: #tenta ler os arquivos
+            self.image = pygame.image.load(path.join(img_dir,'skeleton-idle_00.png')).convert_alpha()
+        except pygame.error: #Se der errado
+            print("Erro ao tentar ler a imagem do rosado") #Avisa se der errado
+            sys.exit() #Sai pela rotina do sistema
         self.image = pygame.transform.scale(self.image,(90,90))
         self.rect = self.image.get_rect()
 
@@ -175,7 +185,11 @@ class Azulado(Rosado):
     def __init__(self,velocidade_azulado,posX_azulado,posY_azulado):
 
         self.speedx = velocidade_azulado
-        self.image = pygame.image.load(path.join(img_dir,'skeleton-fly_00.png')).convert_alpha()
+        try: #tenta ler os arquivos
+            self.image = pygame.image.load(path.join(img_dir,'skeleton-fly_00.png')).convert_alpha()
+        except pygame.error: #Se der errado
+            print("Erro ao tentar ler a imagem do azulado") #Avisa se der errado
+            sys.exit() #Sai pela rotina do sistema
         self.image = pygame.transform.scale(self.image,(105,105))
         self.rect = self.image.get_rect()
         self.rect.x = posX_azulado
@@ -195,7 +209,11 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.speedx = velocidade_bala
-        self.image = pygame.image.load(path.join(img_dir,'bola_de_fogo.png')).convert_alpha()
+        try: #tenta ler os arquivos
+            self.image = pygame.image.load(path.join(img_dir,'bola_de_fogo.png')).convert_alpha()
+        except pygame.error: #Se der errado
+            print("Erro ao tentar ler a imagem da bola de fogo") #Avisa se der errado
+            sys.exit() #Sai pela rotina do sistema
         self.image = pygame.transform.scale(self.image,(70,70 ))
 
         self.rect = self.image.get_rect()
@@ -249,8 +267,8 @@ while loop:
         azulado.go_obstaculo()
 
         #Implementando Música de fundo
-        mixer.music.load(som_dir,"MusicaFundo.mp3")
-        mixer.music.play(-1)
+        #mixer.music.load(som_dir,"MusicaFundo.mp3")
+        #mixer.music.play(-1)
         
         if bullet.rect.x > 4000:
             bullet.rect.x = mariogro.rect.centerx
@@ -261,8 +279,8 @@ while loop:
             fire_state = 'ready'
 
         if fire_state == 'FIRE':
-            bullet_sound=mixer.Sound(som_dir, "bullet.wav")
-            bullet_sound.play()
+            #bullet_sound=mixer.Sound(som_dir, "bullet.wav")
+            #bullet_sound.play()
             bullet.update()
             bullet.rect.x -= bullet.speedx
         
@@ -292,8 +310,9 @@ while loop:
             if keys[pygame.K_SPACE]:
                 bullet.update()
             # Verifica se foi fechado.
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 pygame.quit()
+                sys.exit()
 
         #Tela Games
         pygame.display.flip()
