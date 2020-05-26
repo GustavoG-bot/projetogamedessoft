@@ -239,6 +239,17 @@ rosado = Rosado(5,600,400) # Altera velocidade do monstro rosado
 
 azulado = Azulado(5,850,260) # Altera velocidade do monstro azulado
 
+
+#Implementando Música de fundo
+musica=path.join("sons", "MusicaFundo.oga")
+mixer.music.load(musica)
+mixer.music.play(-1)
+
+#Implementando som do tiro
+#bullet_sound=path.join("sons", "bullet.oga")
+#mixer.music.load(bullet_sound)
+
+
 #Loop da tela inicial
 loop = True
 
@@ -266,9 +277,6 @@ while loop:
         rosado.go_obstaculo()
         azulado.go_obstaculo()
 
-        #Implementando Música de fundo
-        #mixer.music.load(som_dir,"MusicaFundo.mp3")
-        #mixer.music.play(-1)
         
         if bullet.rect.x > 4000:
             bullet.rect.x = mariogro.rect.centerx
@@ -279,7 +287,6 @@ while loop:
             fire_state = 'ready'
 
         if fire_state == 'FIRE':
-            #bullet_sound=mixer.Sound(som_dir, "bullet.wav")
             #bullet_sound.play()
             bullet.update()
             bullet.rect.x -= bullet.speedx
