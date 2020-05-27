@@ -28,6 +28,8 @@ pygame.init()
 #Váriavel para velocidade
 clock = pygame.time.Clock()
 
+
+
 #Gerando Tela do Jogo Principal 
 tamanho = (800,600)
 tela_jogo = pygame.display.set_mode(tamanho)
@@ -53,28 +55,28 @@ class Fundo_intro(pygame.sprite.Sprite):
         tela_jogo2.fill(cor_fundo)
         self.fonte_texto1 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie1 = self.fonte_texto1.render(texto1, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie1, (260, 60))
+        tela_jogo2.blit(self.superficie1, ((tela_jogo2.get_width()-self.superficie1.get_width())/2, 60))
         self.fonte_texto2 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie2 = self.fonte_texto2.render(texto2, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie2, (360, 120))
+        tela_jogo2.blit(self.superficie2, ((tela_jogo2.get_width()-self.superficie2.get_width())/2, 120))
         self.fonte_texto3 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie3 = self.fonte_texto3.render(texto3, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie3, (190, 180))
+        tela_jogo2.blit(self.superficie3, ((tela_jogo2.get_width()-self.superficie3.get_width())/2, 180))
         self.fonte_texto4 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie4 = self.fonte_texto4.render(texto4, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie4, (240, 320))
+        tela_jogo2.blit(self.superficie4, ((tela_jogo2.get_width()-self.superficie4.get_width())/2, 300))
         self.fonte_texto5 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie5 = self.fonte_texto5.render(texto5, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie5, (250, 360))
+        tela_jogo2.blit(self.superficie5, ((tela_jogo2.get_width()-self.superficie5.get_width())/2, 360))
         self.fonte_texto6 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie6 = self.fonte_texto6.render(texto6, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie6, (130, 400))
+        tela_jogo2.blit(self.superficie6, ((tela_jogo2.get_width()-self.superficie6.get_width())/2, 420))
         self.fonte_texto7 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie7 = self.fonte_texto7.render(texto7, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie7, (160, 440))
+        tela_jogo2.blit(self.superficie7, ((tela_jogo2.get_width()-self.superficie7.get_width())/2, 480))
         self.fonte_texto8 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie8 = self.fonte_texto8.render(texto8, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie8, (220, 500))
+        tela_jogo2.blit(self.superficie8, ((tela_jogo2.get_width()-self.superficie8.get_width())/2, 540))
         pygame.display.update()
 
 
@@ -135,7 +137,7 @@ class Personagem(pygame.sprite.Sprite):
             if keys[pygame.K_UP]:
                 self.PULANDO = True
         
-        else: 
+        else:
             if self.tempo_pulo >= -10:
                 self.negativo = 1
                 if self.tempo_pulo < 0:
@@ -242,13 +244,12 @@ azulado = Azulado(5,850,260) # Altera velocidade do monstro azulado
 
 #Implementando Música de fundo
 musica=path.join("sons", "MusicaFundo.oga")
+mixer.music.set_volume(0.2)
 mixer.music.load(musica)
 mixer.music.play(-1)
 
-#Implementando som do tiro
-#bullet_sound=path.join("sons", "bullet.oga")
-#mixer.music.load(bullet_sound)
 
+bullet_sound=mixer.Sound("bullet.oga")
 
 #Loop da tela inicial
 loop = True
@@ -287,7 +288,7 @@ while loop:
             fire_state = 'ready'
 
         if fire_state == 'FIRE':
-            #bullet_sound.play()
+            bullet_sound.play()
             bullet.update()
             bullet.rect.x -= bullet.speedx
         
@@ -299,6 +300,7 @@ while loop:
 
         if hits or hits2:
             JOGANDO = False
+            mixer.music.pause()
             placar = fundo.pontos
             tela_final("Fim de jogo", "Você fez {0} pontos".format(placar),(255,255,255),80,(0,0,0))
             pygame.display.update()
@@ -320,6 +322,7 @@ while loop:
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                 pygame.quit()
                 sys.exit()
+            
 
         #Tela Games
         pygame.display.flip()
