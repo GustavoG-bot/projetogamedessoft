@@ -242,6 +242,7 @@ azulado = Azulado(5,850,260) # Altera velocidade do monstro azulado
 
 #Implementando Música de fundo
 musica=path.join("sons", "MusicaFundo.oga")
+mixer.music.set_volume(0.2)
 mixer.music.load(musica)
 mixer.music.play(-1)
 
