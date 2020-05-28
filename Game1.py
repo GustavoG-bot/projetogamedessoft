@@ -312,8 +312,9 @@ while JOGANDO:
     # Verifica se houve colisão entre tiro e azulado
     hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
 
+    #Contagem de pontos
     if hits or hits2:
-        pontos += 50
+        pontos += 100
 
     #Recriando novos rosados e azulados
     for rosados in hits: 
@@ -354,6 +355,7 @@ while JOGANDO:
                     pygame.quit()
                 else:
                     contador += 1
+                
             
 
   
