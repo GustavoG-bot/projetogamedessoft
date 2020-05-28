@@ -116,19 +116,19 @@ class Fundo(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets['background_img']
         self.rect = self.image.get_rect()
-        self.speedx = - 3
+        self.speedx = -3
         self.pontos = pontos_iniciais
 
     def update(self):
-        self.rect.x += self.speedx
         self.pontos += 3
-        '''
+        
         self.rel_x = self.speedx % self.rect.width
         self.tela_jogoblit = tela_jogo.blit(self.image,(self.rel_x-self.rect.width ,0))
         if self.rel_x < 800:
             self.tela_jogoblit = tela_jogo.blit(self.image,(self.rel_x,0))
-        '''
-        
+        self.rect.x += self.speedx
+        tela_jogo.blit(assets['background_img'], (0, 0))
+
 
 class Personagem(pygame.sprite.Sprite):
     def __init__ (self, posX_personagem, posY_personagem, groups, assets):
@@ -352,7 +352,7 @@ while loop:
 
         # Gera saídas
         tela_jogo.fill((0, 0, 0))  # Preenche com a cor branca
-        tela_jogo.blit(assets['background_img'], (0, 0))
+        #tela_jogo.blit(assets['background_img'], (0, 0))
 
         #Tela Games
         #pygame.display.flip()
