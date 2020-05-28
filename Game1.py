@@ -116,19 +116,8 @@ class Fundo(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets['background_img']
         self.rect = self.image.get_rect()
-        self.speedx = -3
+        self.x_mov = 0
         self.pontos = pontos_iniciais
-
-    def update(self):
-        self.pontos += 3
-        
-        self.rel_x = self.speedx % self.rect.width
-        self.tela_jogoblit = tela_jogo.blit(self.image,(self.rel_x-self.rect.width ,0))
-        if self.rel_x < 800:
-            self.tela_jogoblit = tela_jogo.blit(self.image,(self.rel_x,0))
-        self.rect.x += self.speedx
-        tela_jogo.blit(assets['background_img'], (0, 0))
-
 
 class Personagem(pygame.sprite.Sprite):
     def __init__ (self, posX_personagem, posY_personagem, groups, assets):
@@ -140,7 +129,7 @@ class Personagem(pygame.sprite.Sprite):
         self.rect.x = posX_personagem
         self.rect.y = posY_personagem
 
-        self.speedx = 0
+        self.speedx = -3
 
         self.groups = groups
         self.assets = assets
@@ -240,7 +229,7 @@ rosado = Rosado(assets)
 azulado = Azulado(assets)
 
 #Adicionando no all_sprites
-all_sprites.add(fundo) 
+#all_sprites.add(fundo) 
 all_sprites.add(mariogro)
 all_sprites.add(rosado)
 all_sprites.add(azulado)
@@ -250,6 +239,7 @@ all_sprites.add(azulado)
 intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atirar","Pressione CIMA para pular","Pressione DIREITA ou ESQUERDA para mover o ogro","Caso encoste em um obstáculo, o jogo para","Pressione ENTER para continuar", (255,255,255), 80,30, (34,139,34))
 PULANDO = False
 tempo_pulo = 10
+world_speed = -3
 
 
 #Rodando musica de fundo
@@ -275,6 +265,8 @@ while loop:
     while JOGANDO:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
+
+
       
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
@@ -317,11 +309,10 @@ while loop:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
-        all_sprites.update()
-        
+    
         # Verifica se houve colisão entre tiro e rosado 
         hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True)
+    
         # Verifica se houve colisão entre tiro e azulado
         hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
 
@@ -348,13 +339,32 @@ while loop:
             tela_final("Fim de jogo", "Você fez {0} pontos".format(placar),(255,255,255),80,(0,0,0))
             pygame.display.update()
             # assets['boom_sound'].play()
+
+        #Movimentação do fundo
+
+        all_sprites.update()
+
+        tela_jogo.fill((0, 0, 0))
+        fundo.rect.x += world_speed
+        if fundo.rect.right<0:
+            fundo.rect.x += fundo.rect.width
+        tela_jogo.blit(fundo.image, fundo.rect)
+
+        fundo.rect2 = fundo.rect.copy()
+        fundo.rect2.x += fundo.rect2.width
+
+        tela_jogo.blit(fundo.image, fundo.rect2)
+
+        all_sprites.draw(tela_jogo)
+        pygame.display.flip()
         
 
         # Gera saídas
-        tela_jogo.fill((0, 0, 0))  # Preenche com a cor branca
+    
+        #tela_jogo.fill((0, 0, 0))  # Preenche com a cor branca
         #tela_jogo.blit(assets['background_img'], (0, 0))
 
         #Tela Games
         #pygame.display.flip()
-        all_sprites.draw(tela_jogo)
-        pygame.display.update()
+        #all_sprites.draw(tela_jogo)
+        #pygame.display.update()
