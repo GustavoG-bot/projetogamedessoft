@@ -112,22 +112,21 @@ class Fundo_intro(pygame.sprite.Sprite):
 
 
 class Fundo(pygame.sprite.Sprite):
-    def __init__(self, pontos_iniciais, assets):
+    def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
         self.image = assets['background_img']
         self.rect = self.image.get_rect()
         self.x_mov = 0
-        self.pontos = pontos_iniciais
 
 class Personagem(pygame.sprite.Sprite):
-    def __init__ (self, posX_personagem, posY_personagem, groups, assets):
+    def __init__ (self, groups, assets):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets['personagem_img']
         self.rect = self.image.get_rect()
 
-        self.rect.x = posX_personagem
-        self.rect.y = posY_personagem
+        self.rect.x = 200
+        self.rect.y = 400
 
         self.speedx = -3
 
@@ -158,7 +157,7 @@ class Rosado(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = randint(LARGURA,850)
-        self.rect.y = mariogro.rect.y
+        self.rect.y = 395
 
         self.speedx = randint(4,6)
 
@@ -178,7 +177,7 @@ class Azulado(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
         self.rect.x = randint(LARGURA, 850)
-        self.rect.y = mariogro.rect.y - 120
+        self.rect.y = 295
 
         self.speedx = randint(4, 6)
 
@@ -223,16 +222,18 @@ groups['all_azulados'] = all_azulados
 groups['all_bullets'] = all_bullets
 
 #Criando fundo, personagem, bala, monstros
-fundo = Fundo(0,assets)
-mariogro = Personagem(200,400, groups, assets)
+fundo = Fundo(assets)
+mariogro = Personagem(groups, assets)
 rosado = Rosado(assets)
 azulado = Azulado(assets)
 
-#Adicionando no all_sprites
-#all_sprites.add(fundo) 
+#Adicionando no all_sprites e all_rosados e all_azulados
 all_sprites.add(mariogro)
 all_sprites.add(rosado)
 all_sprites.add(azulado)
+
+all_rosados.add(rosado)
+all_azulados.add(azulado)
 
 
 #Palavras introdutórias do tutorial e algumas variáveis para a movimentação do personagem
@@ -240,6 +241,8 @@ intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atira
 PULANDO = False
 tempo_pulo = 10
 world_speed = -3
+pontos = 0
+pontos += 1
 
 
 #Rodando musica de fundo
@@ -266,8 +269,6 @@ while loop:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
 
-
-      
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
 
@@ -309,10 +310,12 @@ while loop:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+        all_sprites.update()
     
         # Verifica se houve colisão entre tiro e rosado 
         hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True)
-    
+        
         # Verifica se houve colisão entre tiro e azulado
         hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
 
@@ -321,28 +324,25 @@ while loop:
             novo_rosado = Rosado(assets)
             all_sprites.add(novo_rosado)
             all_rosados.add(novo_rosado)
-            
-
+    
         for azulados in hits2: 
             novo_azulado = Azulado(assets)
             all_sprites.add(novo_azulado)
-            all_rosados.add(novo_azulado)
-
+            all_azulados.add(novo_azulado)
+        
         # Verifica se houve colisão entre personagem e rosados, azulados 
         hits_persona = pygame.sprite.spritecollide(mariogro, all_rosados, True)
         hits_persona2 = pygame.sprite.spritecollide(mariogro, all_azulados, True)
 
         if len(hits_persona) > 0 or len(hits_persona2) > 0: 
-            JOGANDO = False
             mixer.music.pause()
-            placar = fundo.pontos
+            placar = pontos
             tela_final("Fim de jogo", "Você fez {0} pontos".format(placar),(255,255,255),80,(0,0,0))
+            JOGANDO = False
             pygame.display.update()
             # assets['boom_sound'].play()
 
         #Movimentação do fundo
-
-        all_sprites.update()
 
         tela_jogo.fill((0, 0, 0))
         fundo.rect.x += world_speed
@@ -357,14 +357,3 @@ while loop:
 
         all_sprites.draw(tela_jogo)
         pygame.display.flip()
-        
-
-        # Gera saídas
-    
-        #tela_jogo.fill((0, 0, 0))  # Preenche com a cor branca
-        #tela_jogo.blit(assets['background_img'], (0, 0))
-
-        #Tela Games
-        #pygame.display.flip()
-        #all_sprites.draw(tela_jogo)
-        #pygame.display.update()
