@@ -1,4 +1,5 @@
 """
+
 Programa projeto final de Design de Software - Engenharia Insper - 1 semestre
 Autores:
 Filippo Ferraro
@@ -32,6 +33,9 @@ COMPRIMENTO = 600
 tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
 pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
+pontos = 0
+
+
 
 # Iniciar assets: 
 rosado_largura = 90
@@ -67,18 +71,6 @@ pygame.mixer.music.set_volume(0.3)
 assets['bullet_sound'] = pygame.mixer.Sound(path.join(som_dir,"bullet.oga"))
 #assets['pew_sound'] = pygame.mixer.Sound('assets/snd/pew.wav')
 
-#Função auxiliar para tela final
-def tela_final(texto1,texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
-    tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-    tela_fim.fill(cor_fundo)
-    fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
-    superficie1 = fonte_fim.render(texto1, True, cor_da_letra)
-    tela_fim.blit(superficie1, (250, 100))
-    fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
-    superficie2 = fonte_fim2.render(texto2, True, cor_da_letra)
-    tela_fim.blit(superficie2, (150, 300))
-
-
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
@@ -86,28 +78,28 @@ class Fundo_intro(pygame.sprite.Sprite):
         tela_jogo2.fill(cor_fundo)
         self.fonte_texto1 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie1 = self.fonte_texto1.render(texto1, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie1, ((tela_jogo2.get_width()-self.superficie1.get_width())/2, 60))
+        tela_jogo2.blit(self.superficie1, (270, 60))
         self.fonte_texto2 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie2 = self.fonte_texto2.render(texto2, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie2, ((tela_jogo2.get_width()-self.superficie2.get_width())/2, 120))
+        tela_jogo2.blit(self.superficie2, (370, 120))
         self.fonte_texto3 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie3 = self.fonte_texto3.render(texto3, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie3, ((tela_jogo2.get_width()-self.superficie3.get_width())/2, 180))
+        tela_jogo2.blit(self.superficie3, (200, 180))
         self.fonte_texto4 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie4 = self.fonte_texto4.render(texto4, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie4, ((tela_jogo2.get_width()-self.superficie4.get_width())/2, 300))
+        tela_jogo2.blit(self.superficie4, (260, 300))
         self.fonte_texto5 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie5 = self.fonte_texto5.render(texto5, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie5, ((tela_jogo2.get_width()-self.superficie5.get_width())/2, 360))
+        tela_jogo2.blit(self.superficie5, (260, 360))
         self.fonte_texto6 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie6 = self.fonte_texto6.render(texto6, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie6, ((tela_jogo2.get_width()-self.superficie6.get_width())/2, 420))
+        tela_jogo2.blit(self.superficie6, (150, 480))
         self.fonte_texto7 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie7 = self.fonte_texto7.render(texto7, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie7, ((tela_jogo2.get_width()-self.superficie7.get_width())/2, 480))
+        tela_jogo2.blit(self.superficie7, (190, 420))
         self.fonte_texto8 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie8 = self.fonte_texto8.render(texto8, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie8, (tela_jogo2.get_width()-self.superficie8.get_width()/2, 540))
+        tela_jogo2.blit(self.superficie8, (230, 540))
         pygame.display.update()
 
 
@@ -187,6 +179,7 @@ class Azulado(pygame.sprite.Sprite):
         if self.rect.right < 0:
             self.rect.x = randint(LARGURA,850)
             self.speedx = randint(4, 6)
+            
  
 
 class Bullet(pygame.sprite.Sprite):
@@ -208,6 +201,8 @@ class Bullet(pygame.sprite.Sprite):
         # Se o tiro passar do fim da tela, morre.
         if self.rect.y > LARGURA:
             self.kill()
+
+
 
 # Criando grupos 
 all_sprites = pygame.sprite.Group()
@@ -241,119 +236,141 @@ intro = Fundo_intro("Bem Vindo","ao","Supermariogro","Pressione SPACE para atira
 PULANDO = False
 tempo_pulo = 10
 world_speed = -3
-pontos = 0
-pontos += 1
+
 
 
 #Rodando musica de fundo
 pygame.mixer.music.play(loops=-1)
 
-#Loop da tela inicial
-loop = True
 
-while loop:
-    Intro = True
-    while Intro:
-        intro.__init__
-        keys = pygame.key.get_pressed()
-        for event in pygame.event.get():
-            if keys[pygame.K_RETURN]:
-                Intro = False
-            elif event.type == pygame.QUIT:
-                pygame.quit()
 
-    #Loop principal do jogo
-    JOGANDO = True
-    
-    while JOGANDO:
-        # Ajusta a velocidade do jogo.
-        clock.tick(FPS)
-
-        # Processa os eventos (mouse, teclado, botão, etc).
-        for event in pygame.event.get():
-
-            # Verifica se apertou alguma tecla.
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    mariogro.speedx += 8
-                if event.key == pygame.K_LEFT:
-                    mariogro.speedx -= 8
-                if event.key == pygame.K_SPACE:
-                    mariogro.shoot()   
-                      
-            # Verifica se soltou alguma tecla.
-            if event.type == pygame.KEYUP:
-                # Dependendo da tecla, altera a velocidade.
-                if event.key == pygame.K_LEFT:
-                    mariogro.speedx += 8
-                if event.key == pygame.K_RIGHT:
-                    mariogro.speedx -= 8
-
-        #Evento exclusivo para o Pulo do personagem!
-        keys = pygame.key.get_pressed()
-        if not PULANDO:
-            if keys[pygame.K_UP]:
-                PULANDO = True
-        else:
-            if tempo_pulo >= -10:
-                negativo = 1
-                if tempo_pulo < 0:
-                    negativo = -1
-                mariogro.rect.y -= int(tempo_pulo**2 * 0.50 * negativo) 
-                #mariogro.speedx += 4
-                tempo_pulo -= 1
-            else:
-                PULANDO = False
-                tempo_pulo = 10 
-
-        # Verifica se foi fechado.
-        if event.type == pygame.QUIT:
+Intro = True
+while Intro:
+    intro.__init__
+    keys = pygame.key.get_pressed()
+    for event in pygame.event.get():
+        if keys[pygame.K_RETURN]:
+            Intro = False
+        elif event.type == pygame.QUIT:
             pygame.quit()
-            sys.exit()
 
-        all_sprites.update()
+#Loop principal do jogo
+JOGANDO = True
     
-        # Verifica se houve colisão entre tiro e rosado 
-        hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True)
-        
-        # Verifica se houve colisão entre tiro e azulado
-        hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
+while JOGANDO:
+    # Ajusta a velocidade do jogo.
+    clock.tick(FPS)
+    keys = pygame.key.get_pressed()
 
-        #Recriando novos rosados e azulados
-        for rosados in hits: 
-            novo_rosado = Rosado(assets)
-            all_sprites.add(novo_rosado)
-            all_rosados.add(novo_rosado)
+    # Processa os eventos (mouse, teclado, botão, etc).
+    for event in pygame.event.get():
+
+        # Verifica se apertou alguma tecla.
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RIGHT:
+                mariogro.speedx += 8
+            if event.key == pygame.K_LEFT:
+                mariogro.speedx -= 8
+            if event.key == pygame.K_SPACE:
+                mariogro.shoot()   
+                      
+        # Verifica se soltou alguma tecla.
+        if event.type == pygame.KEYUP:
+            # Dependendo da tecla, altera a velocidade.
+            if event.key == pygame.K_LEFT:
+                mariogro.speedx += 8
+            if event.key == pygame.K_RIGHT:
+                mariogro.speedx -= 8
+
+    #Evento exclusivo para o Pulo do personagem!
+        
+    if not PULANDO:
+        if keys[pygame.K_UP]:
+            PULANDO = True
+    else:
+        if tempo_pulo >= -10:
+            negativo = 1
+            if tempo_pulo < 0:
+                negativo = -1
+            mariogro.rect.y -= int(tempo_pulo**2 * 0.50 * negativo) 
+            #mariogro.speedx += 4
+            tempo_pulo -= 1
+        else:
+            PULANDO = False
+            tempo_pulo = 10 
+
+    # Verifica se foi fechado.
+    if event.type == pygame.QUIT:
+        pygame.quit()
+        sys.exit()
+
+    all_sprites.update()
     
-        for azulados in hits2: 
-            novo_azulado = Azulado(assets)
-            all_sprites.add(novo_azulado)
-            all_azulados.add(novo_azulado)
+    # Verifica se houve colisão entre tiro e rosado 
+    hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True)
         
-        # Verifica se houve colisão entre personagem e rosados, azulados 
-        hits_persona = pygame.sprite.spritecollide(mariogro, all_rosados, True)
-        hits_persona2 = pygame.sprite.spritecollide(mariogro, all_azulados, True)
+    # Verifica se houve colisão entre tiro e azulado
+    hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
 
-        if len(hits_persona) > 0 or len(hits_persona2) > 0: 
-            mixer.music.pause()
-            placar = pontos
-            tela_final("Fim de jogo", "Você fez {0} pontos".format(placar),(255,255,255),80,(0,0,0))
-            JOGANDO = False
-            pygame.display.update()
-            # assets['boom_sound'].play()
+    if hits or hits2:
+        pontos += 50
 
-        #Movimentação do fundo
+    #Recriando novos rosados e azulados
+    for rosados in hits: 
+        novo_rosado = Rosado(assets)
+        all_sprites.add(novo_rosado)
+        all_rosados.add(novo_rosado)
+    
+    for azulados in hits2: 
+        novo_azulado = Azulado(assets)
+        all_sprites.add(novo_azulado)
+        all_azulados.add(novo_azulado)
+        
+    # Verifica se houve colisão entre personagem e rosados, azulados 
+    hits_persona = pygame.sprite.spritecollide(mariogro, all_rosados, True)
+    hits_persona2 = pygame.sprite.spritecollide(mariogro, all_azulados, True)
 
-        tela_jogo.fill((0, 0, 0))
-        fundo.rect.x += world_speed
-        if fundo.rect.right<0:
-            fundo.rect.x += fundo.rect.width
-        tela_jogo.blit(fundo.image, fundo.rect)
+    if len(hits_persona) > 0 or len(hits_persona2) > 0: 
+        mixer.music.pause()
+        #Classe para tela final
+        class Fundo_Fim(pygame.sprite.Sprite):
+            def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
+                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
+                tela_fim.fill(cor_fundo)
+                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
+                tela_fim.blit(self.superficie1, (250, 100))
+                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
+                tela_fim.blit(self.superficie2, (150, 300))
+                pygame.display.update()
+        tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos),(255,255,255),80,(0,0,0))      
+        tela_fim.__init__
+        JOGANDO = False
+        contador = 0
+        while contador < 1e100:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                else:
+                    contador += 1
+            
 
-        fundo.rect2 = fundo.rect.copy()
-        fundo.rect2.x += fundo.rect2.width
+  
+        # assets['boom_sound'].play()
 
-        tela_jogo.blit(fundo.image, fundo.rect2)
+    #Movimentação do fundo
 
-        all_sprites.draw(tela_jogo)
-        pygame.display.flip()
+    tela_jogo.fill((0, 0, 0))
+    fundo.rect.x += world_speed
+    if fundo.rect.right<0:
+        fundo.rect.x += fundo.rect.width
+    tela_jogo.blit(fundo.image, fundo.rect)
+
+    fundo.rect2 = fundo.rect.copy()
+    fundo.rect2.x += fundo.rect2.width
+
+    tela_jogo.blit(fundo.image, fundo.rect2)
+
+    all_sprites.draw(tela_jogo)
+    pygame.display.flip()
