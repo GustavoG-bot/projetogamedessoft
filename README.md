@@ -1,4 +1,4 @@
-# Projeto Final / Final Project
+# Projeto Final / Final Project / Proyecto Final
 
 ## PT/BR 
 
