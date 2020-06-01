@@ -78,28 +78,28 @@ class Fundo_intro(pygame.sprite.Sprite):
         tela_jogo2.fill(cor_fundo)
         self.fonte_texto1 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie1 = self.fonte_texto1.render(texto1, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie1, (270, 60))
+        tela_jogo2.blit(self.superficie1, ((tela_jogo2.get_width()-self.superficie1.get_width())/2, 60))
         self.fonte_texto2 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie2 = self.fonte_texto2.render(texto2, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie2, (370, 120))
+        tela_jogo2.blit(self.superficie2, ((tela_jogo2.get_width()-self.superficie2.get_width())/2, 120))
         self.fonte_texto3 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie3 = self.fonte_texto3.render(texto3, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie3, (200, 180))
+        tela_jogo2.blit(self.superficie3, ((tela_jogo2.get_width()-self.superficie3.get_width())/2, 180))
         self.fonte_texto4 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie4 = self.fonte_texto4.render(texto4, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie4, (260, 300))
+        tela_jogo2.blit(self.superficie4, ((tela_jogo2.get_width()-self.superficie4.get_width())/2, 300))
         self.fonte_texto5 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie5 = self.fonte_texto5.render(texto5, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie5, (260, 360))
+        tela_jogo2.blit(self.superficie5, ((tela_jogo2.get_width()-self.superficie5.get_width())/2, 360))
         self.fonte_texto6 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie6 = self.fonte_texto6.render(texto6, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie6, (150, 480))
+        tela_jogo2.blit(self.superficie6, ((tela_jogo2.get_width()-self.superficie6.get_width())/2, 480))
         self.fonte_texto7 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie7 = self.fonte_texto7.render(texto7, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie7, (190, 420))
+        tela_jogo2.blit(self.superficie7, ((tela_jogo2.get_width()-self.superficie7.get_width())/2, 420))
         self.fonte_texto8 = pygame.font.SysFont(None, tamanho_da_instrucao)
         self.superficie8 = self.fonte_texto8.render(texto8, True, cor_da_letra)
-        tela_jogo2.blit(self.superficie8, (230, 540))
+        tela_jogo2.blit(self.superficie8, ((tela_jogo2.get_width()-self.superficie8.get_width())/2, 540))
         pygame.display.update()
 
 
@@ -351,8 +351,9 @@ while JOGANDO:
         contador = 0
         while contador < 1e100:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     pygame.quit()
+                    sys.exit()
                 else:
                     contador += 1
                 
