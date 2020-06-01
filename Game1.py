@@ -208,6 +208,19 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
 
 
+class Fundo_Fim(pygame.sprite.Sprite):
+            def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
+                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
+                tela_fim.fill(cor_fundo)
+                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
+                tela_fim.blit(self.superficie1, ((tela_fim.get_width()-self.superficie1.get_width())/2, 100))
+                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
+                tela_fim.blit(self.superficie2, ((tela_fim.get_width()-self.superficie2.get_width())/2, 300))
+                pygame.display.update()
+
+
 
 # Criando grupos 
 all_sprites = pygame.sprite.Group()
@@ -341,18 +354,6 @@ while JOGANDO:
 
     if len(hits_persona) > 0 or len(hits_persona2) > 0: 
         mixer.music.pause()
-        #Classe para tela final
-        class Fundo_Fim(pygame.sprite.Sprite):
-            def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
-                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-                tela_fim.fill(cor_fundo)
-                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
-                tela_fim.blit(self.superficie1, (250, 100))
-                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
-                tela_fim.blit(self.superficie2, (150, 300))
-                pygame.display.update()
         tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos),(255,255,255),80,(0,0,0))      
         tela_fim.__init__
         JOGANDO = False
