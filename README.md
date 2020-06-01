@@ -2,6 +2,8 @@
 
 PT/BR 
 
+Descrição: Olá! Nesse projeto, pensamos em fazer um jogo no pygame inspirado em Super Mario World. A ideia do jogo é simples: destruir os monstros com as bolas de fogo e sobreviver o maior tempo possível. Detalhe: quanto mais monstros matar, maior será sua pontuação! Boa Sorte! Espero que goste!
+
 Título do projeto: Super Mario Ogro 
 
 Integrantes: Gustavo Guedes, Fillippo Ferraro, Tiago Seixas (Estudantes de Engenharia - INSPER)
@@ -18,6 +20,8 @@ Pygame!
 Para instalar o pygame, é simples! Baixe o Anaconda (programa na internet) e digite no prompt, "pip install pygame". Caso tenha alguma dúvida, siga para esse tutorial feito pelo próprio pygame: https://www.pygame.org/wiki/GettingStarted
 
 ENGLISH
+
+Description: Hello! In this git hub project, our team thought of doing a game inspired by Super Mario World. The game idea is easy: destroy all the monsters throwing them fireballs, and of course, survive as much time you can do it. Detail: if you kill more monsters, greater will be your punctuation. Good luck! I hope you enjoy it! 
 
 Project Title: Super Mario Ogro 
 
