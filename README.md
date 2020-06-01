@@ -35,3 +35,18 @@ Library used in this game: Pygame!
 To install pygame is quite easy! Just download Anaconda programme, go to the prompt and write "pip install pygame". More informations on 
 https://www.pygame.org/wiki/GettingStarted
 
+## ESPAÑOL
+
+Descricíon: !Hola¡ En este proyecto, nuestro equipo pensó en hacer un juego inspirado en Super Mario World. La ideia es simples: destruir todos los monstruos con las bombas de fuego, y sobrevivir lo mayor tiempo posible. Detalle: cuanto más monstruos mates, mayor será tu pontuacíon. ¡Buena suerte y espero que te guste!
+
+Titulo del proyecto: Super Mario Ogro
+
+Criadores: Gustavo Guedes, Fillippo Ferraro, Tiago Seixas 
+
+Link de un video que muestra lo juego funcionando: https://www.youtube.com/watch?v=zCN26JDxRyM
+
+Agradecimentos especiales para youtubers que nos ayudaran en el codigo: code.Pylet, Tech with Tim, buildwithpython
+
+Biblioteca utilizada en lo juego: Pygame 
+
+Para más informaciones de como instalar, acesse lo guia: https://www.pygame.org/wiki/GettingStarted
