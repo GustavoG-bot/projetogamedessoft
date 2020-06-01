@@ -13,7 +13,6 @@ from math import *
 import time 
 import sys
 from pygame import mixer
-from config import *
 
 #Pasta que contêm os arquivos:
 img_dir = path.join(path.dirname(__file__), 'img')
@@ -27,8 +26,15 @@ pygame.mixer.init()
 #Váriavel para velocidade
 clock = pygame.time.Clock()
 
+#Gerando Tela do Jogo Principal 
+LARGURA = 800
+COMPRIMENTO = 600
 tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
 pygame.display.set_caption('Super Marioigi Run!')
+FPS = 65
+pontos = 0
+
+
 
 # Iniciar assets: 
 rosado_largura = 90
@@ -59,10 +65,15 @@ assets['background_img'] = pygame.transform.scale(assets['background_img'], (LAR
 
 
 # Carregando sons do jogo: 
-pygame.mixer.music.load(path.join(som_dir, "MusicaFundo.oga"))
-pygame.mixer.music.set_volume(0.3)
+mixer.music.load(path.join(som_dir, "MusicaFundo.oga"))
+mixer.music.set_volume(0.3)
 assets['bullet_sound'] = pygame.mixer.Sound(path.join(som_dir,"bullet.oga"))
-#assets['pew_sound'] = pygame.mixer.Sound('assets/snd/pew.wav')
+mixer.Sound.set_volume(assets['bullet_sound'] ,0.1)
+assets['hit_sound'] = mixer.Sound(path.join(som_dir, "hit.oga"))
+mixer.Sound.set_volume(assets['hit_sound'] ,0.1)
+assets['jump_sound'] = mixer.Sound(path.join(som_dir, "jump.oga"))
+mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
+
 
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
@@ -144,14 +155,14 @@ class Rosado(pygame.sprite.Sprite):
         self.rect.x = randint(LARGURA,850)
         self.rect.y = 395
 
-        self.speedx = randint(4,6)
+        self.speedx = randint(5,9)
 
     def update(self):
         self.rect.x -= self.speedx
         # Se o rosado passar do final da tela, volta para a esquerda e sorteia novas posições e velocidades.
         if self.rect.right < 0:
             self.rect.x = randint(LARGURA, 850)
-            self.speedx = randint(4,6)
+            self.speedx = randint(5,9)
     
 
 class Azulado(pygame.sprite.Sprite):
@@ -164,14 +175,14 @@ class Azulado(pygame.sprite.Sprite):
         self.rect.x = randint(LARGURA, 850)
         self.rect.y = 295
 
-        self.speedx = randint(4, 6)
+        self.speedx = randint(5, 9)
 
     def update(self):
         self.rect.x -= self.speedx
         # Se o rosado passar do final da tela, volta para a esquerda e sorteia novas posições e velocidades.
         if self.rect.right < 0:
             self.rect.x = randint(LARGURA,850)
-            self.speedx = randint(4, 6)
+            self.speedx = randint(5, 9)
             
  
 
@@ -194,6 +205,19 @@ class Bullet(pygame.sprite.Sprite):
         # Se o tiro passar do fim da tela, morre.
         if self.rect.y > LARGURA:
             self.kill()
+
+
+class Fundo_Fim(pygame.sprite.Sprite):
+            def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
+                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
+                tela_fim.fill(cor_fundo)
+                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
+                tela_fim.blit(self.superficie1, ((tela_fim.get_width()-self.superficie1.get_width())/2, 100))
+                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
+                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
+                tela_fim.blit(self.superficie2, ((tela_fim.get_width()-self.superficie2.get_width())/2, 300))
+                pygame.display.update()
 
 
 
@@ -279,6 +303,7 @@ while JOGANDO:
         
     if not PULANDO:
         if keys[pygame.K_UP]:
+            assets['jump_sound'].play()
             PULANDO = True
     else:
         if tempo_pulo >= -10:
@@ -286,7 +311,7 @@ while JOGANDO:
             if tempo_pulo < 0:
                 negativo = -1
             mariogro.rect.y -= int(tempo_pulo**2 * 0.50 * negativo) 
-            #mariogro.speedx += 4
+            mariogro.rect.x += 4
             tempo_pulo -= 1
         else:
             PULANDO = False
@@ -310,12 +335,14 @@ while JOGANDO:
         pontos += 100
 
     #Recriando novos rosados e azulados
-    for rosados in hits: 
+    for rosados in hits:
+        assets['hit_sound'].play()
         novo_rosado = Rosado(assets)
         all_sprites.add(novo_rosado)
         all_rosados.add(novo_rosado)
     
-    for azulados in hits2: 
+    for azulados in hits2:
+        assets['hit_sound'].play()
         novo_azulado = Azulado(assets)
         all_sprites.add(novo_azulado)
         all_azulados.add(novo_azulado)
@@ -326,18 +353,6 @@ while JOGANDO:
 
     if len(hits_persona) > 0 or len(hits_persona2) > 0: 
         mixer.music.pause()
-        #Classe para tela final
-        class Fundo_Fim(pygame.sprite.Sprite):
-            def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
-                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-                tela_fim.fill(cor_fundo)
-                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
-                tela_fim.blit(self.superficie1, (250, 100))
-                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
-                tela_fim.blit(self.superficie2, (150, 300))
-                pygame.display.update()
         tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos),(255,255,255),80,(0,0,0))      
         tela_fim.__init__
         JOGANDO = False
@@ -350,9 +365,6 @@ while JOGANDO:
                 else:
                     contador += 1
                 
-  
-        # assets['boom_sound'].play()
-
     #Movimentação do fundo
 
     tela_jogo.fill((0, 0, 0))
