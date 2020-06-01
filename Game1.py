@@ -66,10 +66,15 @@ assets['background_img'] = pygame.transform.scale(assets['background_img'], (LAR
 
 
 # Carregando sons do jogo: 
-pygame.mixer.music.load(path.join(som_dir, "MusicaFundo.oga"))
-pygame.mixer.music.set_volume(0.3)
+mixer.music.load(path.join(som_dir, "MusicaFundo.oga"))
+mixer.music.set_volume(0.3)
 assets['bullet_sound'] = pygame.mixer.Sound(path.join(som_dir,"bullet.oga"))
-#assets['pew_sound'] = pygame.mixer.Sound('assets/snd/pew.wav')
+mixer.Sound.set_volume(assets['bullet_sound'] ,0.1)
+assets['hit_sound'] = mixer.Sound(path.join(som_dir, "hit.oga"))
+mixer.Sound.set_volume(assets['hit_sound'] ,0.1)
+assets['jump_sound'] = mixer.Sound(path.join(som_dir, "jump.oga"))
+mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
+
 
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
@@ -286,6 +291,7 @@ while JOGANDO:
         
     if not PULANDO:
         if keys[pygame.K_UP]:
+            assets['jump_sound'].play()
             PULANDO = True
     else:
         if tempo_pulo >= -10:
@@ -317,12 +323,14 @@ while JOGANDO:
         pontos += 100
 
     #Recriando novos rosados e azulados
-    for rosados in hits: 
+    for rosados in hits:
+        assets['hit_sound'].play()
         novo_rosado = Rosado(assets)
         all_sprites.add(novo_rosado)
         all_rosados.add(novo_rosado)
     
-    for azulados in hits2: 
+    for azulados in hits2:
+        assets['hit_sound'].play()
         novo_azulado = Azulado(assets)
         all_sprites.add(novo_azulado)
         all_azulados.add(novo_azulado)
