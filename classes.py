@@ -1,3 +1,19 @@
+import pygame
+from random import randint
+from os import path
+from math import *
+import time 
+import sys
+from pygame import mixer
+
+#Gerando Tela do Jogo Principal 
+LARGURA = 800
+COMPRIMENTO = 600
+tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
+pygame.display.set_caption('Super Marioigi Run!')
+FPS = 65
+pontos = 0
+
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
@@ -141,4 +157,6 @@ class Fundo_Fim(pygame.sprite.Sprite):
                 self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
                 tela_fim.blit(self.superficie2, ((tela_fim.get_width()-self.superficie2.get_width())/2, 300))
                 pygame.display.update()
+
+
 
