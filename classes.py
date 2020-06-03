@@ -12,7 +12,6 @@ COMPRIMENTO = 600
 tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
 pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
-pontos = 0
 
 #Criando as classes do jogo
 class Fundo_intro(pygame.sprite.Sprite):
