@@ -96,6 +96,7 @@ def loop_jogo():
             tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos),(255,255,255),80,(0,0,0))      
             tela_fim.__init__
             JOGANDO = False
+            assets['gameover_sound'].play()
             contador = 0
             while contador < 1e100:
                 for event in pygame.event.get():

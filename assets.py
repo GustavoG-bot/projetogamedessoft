@@ -63,6 +63,8 @@ assets['hit_sound'] = mixer.Sound(path.join(som_dir, "hit.oga"))
 mixer.Sound.set_volume(assets['hit_sound'] ,0.1)
 assets['jump_sound'] = mixer.Sound(path.join(som_dir, "jump.oga"))
 mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
+assets['gameover_sound'] = mixer.Sound(path.join(som_dir, "gameover.oga"))
+mixer.Sound.set_volume(assets['gameover_sound'] ,0.3)
 
 # Criando grupos de sprites
 all_sprites = pygame.sprite.Group()
