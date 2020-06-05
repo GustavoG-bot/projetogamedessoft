@@ -1,3 +1,6 @@
+"""Arquivos, parâmetros, assets e sprites do jogo"""
+
+#Importando bibliotecas necessárias
 import pygame
 from os import path
 from pygame import mixer
@@ -22,7 +25,7 @@ clock = pygame.time.Clock()
 #Inicializando som
 pygame.mixer.init()
 
-# Iniciar assets: 
+#Parâmetros 
 rosado_largura = 90
 rosado_comprimento = 90
 azulado_largura = 105
@@ -32,6 +35,7 @@ personagem_comprimento = 90
 bala_largura = 50
 bala_comprimento = 50
 
+# Iniciar assets:
 assets = {}
 
 assets['personagem_img'] = pygame.image.load(path.join(img_dir,'mariogro.png')).convert_alpha()
@@ -60,7 +64,7 @@ mixer.Sound.set_volume(assets['hit_sound'] ,0.1)
 assets['jump_sound'] = mixer.Sound(path.join(som_dir, "jump.oga"))
 mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
 
-# Criando grupos 
+# Criando grupos de sprites
 all_sprites = pygame.sprite.Group()
 all_rosados = pygame.sprite.Group()
 all_azulados = pygame.sprite.Group()
@@ -79,7 +83,7 @@ mariogro = Personagem(groups, assets)
 rosado = Rosado(assets)
 azulado = Azulado(assets)
 
-#Adicionando no all_sprites e all_rosados e all_azulados
+#Adicionando sprites nos grupos
 all_sprites.add(mariogro)
 all_sprites.add(rosado)
 all_sprites.add(azulado)

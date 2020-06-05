@@ -1,3 +1,6 @@
+"""Classes do jogo"""
+
+#Importando bibliotecas necessárias
 import pygame
 from random import randint
 from os import path
@@ -14,6 +17,8 @@ pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
 
 #Criando as classes do jogo
+
+#Classe da tela de entrada
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
         tela_jogo2 = pygame.display.set_mode((LARGURA,COMPRIMENTO))
@@ -44,7 +49,7 @@ class Fundo_intro(pygame.sprite.Sprite):
         tela_jogo2.blit(self.superficie8, ((tela_jogo2.get_width()-self.superficie8.get_width())/2, 540))
         pygame.display.update()
 
-
+#Classe da tela de fundo do jogo
 class Fundo(pygame.sprite.Sprite):
     def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
@@ -52,6 +57,7 @@ class Fundo(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.x_mov = 0
 
+#Classe do personagem do jogador
 class Personagem(pygame.sprite.Sprite):
     def __init__ (self, groups, assets):
         pygame.sprite.Sprite.__init__(self)
@@ -83,6 +89,7 @@ class Personagem(pygame.sprite.Sprite):
         self.groups['all_bullets'].add(nova_bala)
         self.assets['bullet_sound'].play()
 
+#Classe de um obstáculo
 class Rosado(pygame.sprite.Sprite):
     def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
@@ -102,7 +109,7 @@ class Rosado(pygame.sprite.Sprite):
             self.rect.x = randint(LARGURA, 850)
             self.speedx = randint(5,9)
     
-
+#Classe de outro obstáculo
 class Azulado(pygame.sprite.Sprite):
     def __init__(self, assets):
         pygame.sprite.Sprite.__init__(self)
@@ -123,7 +130,7 @@ class Azulado(pygame.sprite.Sprite):
             self.speedx = randint(5, 9)
             
  
-
+#Classe da bola de fogo
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, assets, posY_personagem, centerx):
         pygame.sprite.Sprite.__init__(self)
@@ -144,7 +151,7 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.y > LARGURA:
             self.kill()
 
-
+#Classe da tela final
 class Fundo_Fim(pygame.sprite.Sprite):
             def __init__(self, texto1, texto2, cor_da_letra, tamanho_do_titulo, cor_fundo):
                 tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))

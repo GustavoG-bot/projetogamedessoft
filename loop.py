@@ -1,3 +1,6 @@
+"""Loop da tela inicial do jogo"""
+
+#Importando as classes necessárias
 import pygame
 from classes import *
 

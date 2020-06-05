@@ -1,3 +1,6 @@
+"""Loop principal do jogo"""
+
+#Importando bibliotecas necessárias
 import pygame
 from classes import *
 from assets import *
