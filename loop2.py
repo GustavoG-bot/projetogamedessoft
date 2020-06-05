@@ -5,6 +5,7 @@ import pygame
 from classes import *
 from assets import *
 from loop import *
+import os
 
 def loop_jogo():
     #Variáveis iniciais
@@ -105,9 +106,15 @@ def loop_jogo():
             contador = 0
             while contador < 1e100:
                 for event in pygame.event.get():
+                    
                     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                         pygame.quit()
                         sys.exit()
+
+                    if keys[pygame.K_r]:
+                        pygame.quit()
+                        os.system("python Game1.py")
+
                     else:
                         contador += 1
                     
