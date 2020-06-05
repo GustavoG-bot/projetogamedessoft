@@ -105,8 +105,8 @@ def loop_jogo():
             assets['gameover_sound'].play()
             contador = 0
             while contador < 1e100:
+                keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
-                    keys = pygame.key.get_pressed()
                     
                     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                         pygame.quit()
