@@ -15,14 +15,14 @@ COMPRIMENTO = 600
 tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
 pygame.display.set_caption('Super Marioigi Run!')
 FPS = 65
-
+cor_intro=(255, 200, 70)
 #Criando as classes do jogo
 
 #Classe da tela de entrada
 class Fundo_intro(pygame.sprite.Sprite):
     def __init__(self,texto1,texto2,texto3,texto4,texto5,texto6,texto7,texto8, cor_da_letra, tamanho_do_titulo,tamanho_da_instrucao, cor_fundo):
         tela_jogo2 = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-        tela_jogo2.fill(cor_fundo)
+        tela_jogo2.fill(cor_intro)
         self.fonte_texto1 = pygame.font.SysFont(None, tamanho_do_titulo)
         self.superficie1 = self.fonte_texto1.render(texto1, True, cor_da_letra)
         tela_jogo2.blit(self.superficie1, ((tela_jogo2.get_width()-self.superficie1.get_width())/2, 60))
