@@ -160,25 +160,25 @@ class Bullet(pygame.sprite.Sprite):
         if self.rect.y > LARGURA:
             self.kill()
 
-#Classe da tela final
+#Classe da tela final - Pontos
 class Fundo_Fim(pygame.sprite.Sprite):
-            def __init__(self, texto1, texto2, texto3, cor_da_letra, tamanho_do_titulo, tamanho_da_instrucao,cor_fundo):
-                tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-                tela_fim.fill(cor_fundo)
+    def __init__(self, texto1, texto2, texto3, cor_da_letra, tamanho_do_titulo, tamanho_da_instrucao,cor_fundo):
+        tela_fim = pygame.display.set_mode((LARGURA,COMPRIMENTO))
+        tela_fim.fill(cor_fundo)
 
-                self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
-                tela_fim.blit(self.superficie1, ((tela_fim.get_width()-self.superficie1.get_width())/2, 100))
+        self.fonte_fim = pygame.font.SysFont(None, tamanho_do_titulo)
+        self.superficie1 = self.fonte_fim.render(texto1, True, cor_da_letra)
+        tela_fim.blit(self.superficie1, ((tela_fim.get_width()-self.superficie1.get_width())/2, 100))
                 
-                self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
-                self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
-                tela_fim.blit(self.superficie2, ((tela_fim.get_width()-self.superficie2.get_width())/2, 300))
+        self.fonte_fim2 = pygame.font.SysFont(None, tamanho_do_titulo)
+        self.superficie2 = self.fonte_fim2.render(texto2, True, cor_da_letra)
+        tela_fim.blit(self.superficie2, ((tela_fim.get_width()-self.superficie2.get_width())/2, 300))
                 
-                self.fonte_fim3 = pygame.font.SysFont(None, tamanho_da_instrucao)
-                self.superficie3 = self.fonte_fim3.render(texto3, True, cor_da_letra)
-                tela_fim.blit(self.superficie3, ((tela_fim.get_width()-self.superficie3.get_width())/2, 500))
+        self.fonte_fim3 = pygame.font.SysFont(None, tamanho_da_instrucao)
+        self.superficie3 = self.fonte_fim3.render(texto3, True, cor_da_letra)
+        tela_fim.blit(self.superficie3, ((tela_fim.get_width()-self.superficie3.get_width())/2, 500))
                 
-                pygame.display.update()
+        pygame.display.update()
 
 
 

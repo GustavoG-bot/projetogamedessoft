@@ -1,6 +1,6 @@
 """Arquivos, parâmetros, assets e sprites do jogo"""
 
-#Importando bibliotecas necessárias
+#Importando bibliotecas necessárias para o jogo
 import pygame
 from os import path
 from pygame import mixer

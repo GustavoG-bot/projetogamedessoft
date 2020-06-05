@@ -122,7 +122,7 @@ def loop_jogo():
                     else:
                         contador += 1
                     
-        #Movimentação do fundo
+        #Movimentação do fundo (cenário)
 
         tela_jogo.fill((0, 0, 0))
         fundo.rect.x += world_speed
