@@ -106,6 +106,7 @@ def loop_jogo():
             contador = 0
             while contador < 1e100:
                 for event in pygame.event.get():
+                    keys = pygame.key.get_pressed()
                     
                     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                         pygame.quit()
