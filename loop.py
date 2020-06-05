@@ -3,7 +3,7 @@
 #Importando as classes necessárias
 import pygame
 from classes import *
-
+pygame.init()
 
 
 def loop_intro():

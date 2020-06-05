@@ -6,6 +6,7 @@ from classes import *
 from assets import *
 from loop import *
 import os
+from subprocess import Popen
 
 def loop_jogo():
     #Variáveis iniciais
@@ -105,17 +106,19 @@ def loop_jogo():
             assets['gameover_sound'].play()
             contador = 0
             while contador < 1e100:
-                keys = pygame.key.get_pressed()
                 for event in pygame.event.get():
+                    keys = pygame.key.get_pressed()
                     
                     if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                         pygame.quit()
                         sys.exit()
 
-                    if keys[pygame.K_r]:
+                    elif keys[pygame.K_r]:
                         pygame.quit()
-                        os.system("python Game1.py")
-
+                        pygame.init()
+                        os.system('python Game1.py')
+                        exit()
+                        
                     else:
                         contador += 1
                     
