@@ -99,7 +99,7 @@ def loop_jogo():
 
         if len(hits_persona) > 0 or len(hits_persona2) > 0: 
             mixer.music.pause()
-            tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos),(255,255,255),80,(0,0,0))      
+            tela_fim = Fundo_Fim("Fim de jogo", "Você fez {0} pontos".format(pontos), "Aperte r para tentar novamente!", (255,255,255), 80, 50, (0,0,0))      
             tela_fim.__init__
             JOGANDO = False
             assets['gameover_sound'].play()
