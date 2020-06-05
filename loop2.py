@@ -13,6 +13,11 @@ def loop_jogo():
     PULANDO = False
     tempo_pulo = 10
     world_speed = -3
+    #Placar de pontos
+    font = pygame.font.SysFont("arial black", 25)
+    texto = font.render("Pontos: ", True, (255,255,255), (0, 0, 0))
+    pos_texto = texto.get_rect()
+    pos_texto.center = (55, 15)
     while JOGANDO:
         # Ajusta a velocidade do jogo.
         clock.tick(FPS)
@@ -73,7 +78,7 @@ def loop_jogo():
         #Contagem de pontos
         if hits or hits2:
             pontos += 100
-
+            texto = font.render("Pontos: "+str(pontos), True, (255,255,255), (0, 0, 0))
         #Recriando novos rosados e azulados
         for rosados in hits:
             assets['hit_sound'].play()
@@ -120,4 +125,5 @@ def loop_jogo():
         tela_jogo.blit(fundo.image, fundo.rect2)
 
         all_sprites.draw(tela_jogo)
+        tela_jogo.blit(texto, pos_texto)
         pygame.display.flip()

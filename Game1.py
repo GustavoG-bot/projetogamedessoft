@@ -1,5 +1,6 @@
 """ Programa projeto final de Design de Software
 Autores: Filippo Ferraro, Gustavo Guedes e Tiago Seixas - Engenharia Insper - 1 semestreb - Turma A """
+
 #Importando Bibliotecas necessárias para o jogo
 import pygame
 from assets import *
@@ -17,8 +18,10 @@ pygame.mixer.init()
 #Rodando musica de fundo
 pygame.mixer.music.play(loops=-1)
 
+
 #Rodando o loop de entrada
 loop_intro()
+
 
 #Rodando o loop principal do jogo
 loop_jogo()
