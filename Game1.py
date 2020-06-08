@@ -21,5 +21,12 @@ pygame.mixer.music.play(loops=-1)
 #Rodando o loop de entrada
 loop_intro()
 
-#Rodando o loop principal do jogo
-loop_jogo()
+#Rodando loop principal
+reiniciar = loop_jogo()
+while reiniciar:
+    #Rodando musica de fundo
+    pygame.mixer.music.play(loops=-1)
+    #Rodando o loop de entrada
+    loop_intro()
+    #Rodando o loop principal do jogo
+    reiniciar = loop_jogo()

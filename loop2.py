@@ -6,9 +6,35 @@ from classes import *
 from assets import *
 from loop import *
 import os
-from subprocess import Popen
 
 def loop_jogo():
+
+    # Criando grupos de sprites
+    all_sprites = pygame.sprite.Group()
+    all_rosados = pygame.sprite.Group()
+    all_azulados = pygame.sprite.Group()
+    all_bullets = pygame.sprite.Group()
+
+    groups = {}
+    groups['all_sprites'] = all_sprites
+    groups['all_rosados'] = all_rosados
+    groups['all_azulados'] = all_azulados
+    groups['all_bullets'] = all_bullets
+
+
+    #Criando fundo, personagem, bala, monstros
+    fundo = Fundo(assets)
+    mariogro = Personagem(groups, assets)
+    rosado = Rosado(assets)
+    azulado = Azulado(assets)
+
+    #Adicionando sprites nos grupos
+    all_sprites.add(mariogro)
+    all_sprites.add(rosado)
+    all_sprites.add(azulado)
+
+    all_rosados.add(rosado)
+    all_azulados.add(azulado)
     #Variáveis iniciais
     pontos = 0
     JOGANDO = True
@@ -77,9 +103,14 @@ def loop_jogo():
         # Verifica se houve colisão entre tiro e azulado
         hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
 
-        #Contagem de pontos
-        if hits or hits2:
+        #Contagem de pontos matando Rosado
+        if hits:
             pontos += 100
+            texto = font.render("Pontos: "+str(pontos), True, (255,255,255), (0, 0, 0))
+
+        #Contagem de pontos matando Azulado
+        if hits2:
+            pontos += 300
             texto = font.render("Pontos: "+str(pontos), True, (255,255,255), (0, 0, 0))
         #Recriando novos rosados e azulados
         for rosados in hits:
@@ -114,11 +145,13 @@ def loop_jogo():
                         sys.exit()
 
                     elif keys[pygame.K_r]:
-                        pygame.quit()
-                        pygame.init()
-                        os.system('python Game1.py')
-                        exit()
-                        
+                        """pygame.quit()
+                        pygame.init()"""
+                        #reiniciando o jogo (no Vscode pode não reiniciar)
+                        """os.system('python Game1.py')
+                        exit()"""
+                        return True
+
                     else:
                         contador += 1
                     

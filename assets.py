@@ -9,7 +9,6 @@ from classes import *
 #Pasta que contêm os arquivos:
 img_dir = path.join(path.dirname(__file__), 'img')
 som_dir = path.join(path.dirname(__file__), 'sons')
-font_dir = path.join(path.dirname(__file__), 'font')
 
 #Gerando Tela do Jogo Principal 
 LARGURA = 800
@@ -66,7 +65,7 @@ mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
 assets['gameover_sound'] = mixer.Sound(path.join(som_dir, "gameover.oga"))
 mixer.Sound.set_volume(assets['gameover_sound'] ,0.3)
 
-# Criando grupos de sprites
+"""# Criando grupos de sprites
 all_sprites = pygame.sprite.Group()
 all_rosados = pygame.sprite.Group()
 all_azulados = pygame.sprite.Group()
@@ -91,5 +90,5 @@ all_sprites.add(rosado)
 all_sprites.add(azulado)
 
 all_rosados.add(rosado)
-all_azulados.add(azulado)
+all_azulados.add(azulado)"""
 
