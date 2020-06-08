@@ -14,7 +14,7 @@ som_dir = path.join(path.dirname(__file__), 'sons')
 LARGURA = 800
 COMPRIMENTO = 600
 tela_jogo = pygame.display.set_mode((LARGURA,COMPRIMENTO))
-pygame.display.set_caption('Super Marioigi Run!')
+pygame.display.set_caption('Super Mariogro Run!')
 FPS = 65
 pontos = 0
 
