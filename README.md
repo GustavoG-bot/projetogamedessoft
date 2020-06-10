@@ -3,7 +3,7 @@
 
 ## PT/BR 
 
-Descrição: Olá! Nesse projeto, pensamos em fazer um jogo no pygame inspirado em Super Mario World. A ideia do jogo é simples: destruir os monstros com as bolas de fogo e sobreviver o maior tempo possível. Detalhe: quanto mais monstros matar, maior será sua pontuação! Boa Sorte! Espero que goste!
+Descrição: Olá! Nesse projeto, pensamos em fazer um jogo no pygame inspirado em Super Mario World. A ideia do jogo é simples: destruir os monstros com as bolas de fogo e sobreviver o maior tempo possível. Detalhe: quanto mais monstros matar, maior será sua pontuação! Boa Sorte! Espero que goste! Para rodar o jogo, rode o arquivo "Game1.py"
 
 Título do projeto: Super Mario Ogro 
 
@@ -22,7 +22,7 @@ Para instalar o pygame, é simples! Baixe o Anaconda (programa na internet) e di
 
 ## ENGLISH
 
-Description: Hello! In this git hub project, our team thought of doing a game inspired by Super Mario World. The game idea is easy: destroy all the monsters throwing them fireballs, and of course, survive as much time you can do it. Detail: if you kill more monsters, greater will be your punctuation. Good luck! I hope you enjoy it! 
+Description: Hello! In this git hub project, our team thought of doing a game inspired by Super Mario World. The game idea is easy: destroy all the monsters throwing them fireballs, and of course, survive as much time you can do it. Detail: if you kill more monsters, greater will be your punctuation. Good luck! I hope you enjoy it! To play de game, please run "Game1.py"
 
 Project Title: Super Mario Ogro 
 
@@ -38,7 +38,7 @@ https://www.pygame.org/wiki/GettingStarted
 
 ## ESPAÑOL
 
-Descricíon: !Hola¡ En este proyecto, nuestro equipo pensó en hacer un juego inspirado en Super Mario World. La ideia es simples: destruir todos los monstruos con las bombas de fuego, y sobrevivir lo mayor tiempo posible. Detalle: cuanto más monstruos mates, mayor será tu pontuacíon. ¡Buena suerte y espero que te guste!
+Descricíon: !Hola¡ En este proyecto, nuestro equipo pensó en hacer un juego inspirado en Super Mario World. La ideia es simples: destruir todos los monstruos con las bombas de fuego, y sobrevivir lo mayor tiempo posible. Detalle: cuanto más monstruos mates, mayor será tu pontuacíon. ¡Buena suerte y espero que te guste! Para jugar el juego: "Game1.py"
 
 Titulo del proyecto: Super Mario Ogro
 
