@@ -17,3 +17,4 @@ def loop_intro():
                 Intro = False
             elif event.type == pygame.QUIT:
                 pygame.quit()
+                sys.exit()
