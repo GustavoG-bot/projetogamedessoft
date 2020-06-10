@@ -64,31 +64,3 @@ assets['jump_sound'] = mixer.Sound(path.join(som_dir, "jump.oga"))
 mixer.Sound.set_volume(assets['jump_sound'] ,0.1)
 assets['gameover_sound'] = mixer.Sound(path.join(som_dir, "gameover.oga"))
 mixer.Sound.set_volume(assets['gameover_sound'] ,0.3)
-
-"""# Criando grupos de sprites
-all_sprites = pygame.sprite.Group()
-all_rosados = pygame.sprite.Group()
-all_azulados = pygame.sprite.Group()
-all_bullets = pygame.sprite.Group()
-
-groups = {}
-groups['all_sprites'] = all_sprites
-groups['all_rosados'] = all_rosados
-groups['all_azulados'] = all_azulados
-groups['all_bullets'] = all_bullets
-
-
-#Criando fundo, personagem, bala, monstros
-fundo = Fundo(assets)
-mariogro = Personagem(groups, assets)
-rosado = Rosado(assets)
-azulado = Azulado(assets)
-
-#Adicionando sprites nos grupos
-all_sprites.add(mariogro)
-all_sprites.add(rosado)
-all_sprites.add(azulado)
-
-all_rosados.add(rosado)
-all_azulados.add(azulado)"""
-

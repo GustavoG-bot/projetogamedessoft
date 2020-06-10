@@ -104,6 +104,7 @@ class Rosado(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.image = assets['rosado_img']
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
         self.rect.x = randint(LARGURA,850)
@@ -124,6 +125,7 @@ class Azulado(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.image = assets['azulado_img']
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
         self.rect.x = randint(LARGURA, 850)
@@ -148,6 +150,7 @@ class Bullet(pygame.sprite.Sprite):
         self.speedx = -20 
 
         self.image = assets['bullet_img']
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
         self.rect.centerx = centerx

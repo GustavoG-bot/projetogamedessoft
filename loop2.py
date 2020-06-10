@@ -98,10 +98,10 @@ def loop_jogo():
         all_sprites.update()
         
         # Verifica se houve colisão entre tiro e rosado 
-        hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True)
+        hits = pygame.sprite.groupcollide(all_rosados, all_bullets, True, True, pygame.sprite.collide_mask)
             
         # Verifica se houve colisão entre tiro e azulado
-        hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True)
+        hits2 = pygame.sprite.groupcollide(all_azulados, all_bullets, True, True, pygame.sprite.collide_mask)
 
         #Contagem de pontos matando Rosado
         if hits:
@@ -126,8 +126,8 @@ def loop_jogo():
             all_azulados.add(novo_azulado)
             
         # Verifica se houve colisão entre personagem e rosados, azulados 
-        hits_persona = pygame.sprite.spritecollide(mariogro, all_rosados, True)
-        hits_persona2 = pygame.sprite.spritecollide(mariogro, all_azulados, True)
+        hits_persona = pygame.sprite.spritecollide(mariogro, all_rosados, True, pygame.sprite.collide_mask)
+        hits_persona2 = pygame.sprite.spritecollide(mariogro, all_azulados, True, pygame.sprite.collide_mask)
 
         if len(hits_persona) > 0 or len(hits_persona2) > 0: 
             mixer.music.pause()
